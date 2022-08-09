@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 30;
+var trapCheckTimeDiff = 15;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2440,12 +2440,12 @@ function folkloreForest() {
         var mythicalMulchNumber = objUser.items.mythical_mulch_stat_item.quantity;
         var papyrusSeedNumber = objUser.items.papyrus_seed_stat_item.quantity;
 
-        var canClaim = objUser.harvest_bin.can_claim;
+//         var canClaim = objUser.harvest_bin.can_claim;
 
-        if (canClaim) {
-            var claimButton = document.getElementsByClassName('forewordFarmView-harvestBin-claimButton')[0];
-            fireEvent(claimButton, 'click');
-        }
+//         if (canClaim) {
+//             var claimButton = document.getElementsByClassName('forewordFarmView-harvestBin-claimButton')[0];
+//             fireEvent(claimButton, 'click');
+//         }
 
         // Check for ability to simultaneously plant 3 tier-2s
         var canPlantThreeTierTwo = false;
@@ -2500,10 +2500,10 @@ function folkloreForest() {
 
         if (objUser.bait == "stormy_clamembert_cheese") {
             // If fuel off, turn on
-            if (!fuelOn) {
-                fireEvent(fuelButton, 'click');
-            }
-            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+//             if (!fuelOn) {
+//                 fireEvent(fuelButton, 'click');
+//             }
+            checkThenArm(null, 'trinket', 'Rift Charm');
         } else if (objUser.bait == "clamembert_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2545,7 +2545,7 @@ function folkloreForest() {
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
 
-        var needFuel = (2000 - wordCount + 70) / huntsRemaining > 65.0;
+        var needFuel = (2000 - wordCount + 65) / huntsRemaining > 65.0;
 
         if (bait == "second_draft_derby_cheese") {
             if (wordCount >= 2000) {
@@ -2557,15 +2557,21 @@ function folkloreForest() {
             } else if (!needFuel && fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
+            checkThenArm(null, 'trinket', 'Ancient Charm');
         } else if (bait == "final_draft_derby_cheese") {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
-	    if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
-                fireEvent(retreatButton, 'click');
-                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
-                fireEvent(confirmButton, 'click');
-            }
+            checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+            checkThenArm(null, 'base', 'Signature Series Denture Base');
+//             if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
+//                 fireEvent(retreatButton, 'click');
+//                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+//                 fireEvent(confirmButton, 'click');
+//             }
+        } else {
+            disarmTrap('trinket');
+            checkThenArm(null, 'base', 'Prestige Base');
         }
     }
 }
