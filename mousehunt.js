@@ -2545,6 +2545,29 @@ function folkloreForest() {
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
 
+        // claim
+        if (objUser.can_claim) {
+            fireEvent(claimButton, 'click');
+            var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton jsDialogClose');
+            if (closeButton.length >= 1) {
+                fireEvent(closeButton[0], 'click');
+            }
+        }
+
+        // start epic run if enough 2nd draft and not enough FD
+        if (parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[1].textContent) >= 25 &&
+            parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[2].textContent) < 40) {
+            var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
+            if (objUser.can_start && startButton.length > 0) {
+                fireEvent(startButton[0], 'click')
+                var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
+                fireEvent(secondDerbyButton, 'click')
+                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
+                fireEvent(confirmButton, 'click');
+                fireEvent(fuelButton, 'click');
+            }
+        }
+
         var needFuel = (2000 - wordCount + 65) / huntsRemaining > 65.0;
 
         if (bait == "second_draft_derby_cheese") {
@@ -2558,17 +2581,13 @@ function folkloreForest() {
                 fireEvent(fuelButton, 'click');
             }
             checkThenArm(null, 'trinket', 'Ancient Charm');
+            checkThenArm(null, 'base', 'Prestige Base');
         } else if (bait == "final_draft_derby_cheese") {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
             checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
             checkThenArm(null, 'base', 'Signature Series Denture Base');
-//             if (wordCount >= 4000 && huntsRemaining <= 1 && objUser.next_book.words_until > 2000) {
-//                 fireEvent(retreatButton, 'click');
-//                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
-//                 fireEvent(confirmButton, 'click');
-//             }
         } else {
             disarmTrap('trinket');
             checkThenArm(null, 'base', 'Prestige Base');
