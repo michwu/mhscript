@@ -2544,6 +2544,7 @@ function folkloreForest() {
         var wordCount = objUser.current_book.word_count;
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
+	var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0]
 
         // claim
         if (objUser.can_claim) {
