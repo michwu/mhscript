@@ -2513,7 +2513,7 @@ function folkloreForest() {
             if (chumOn) {
                 fireEvent(chumButtonTurnOff, 'click');
             }
-            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+            checkThenArm(null, 'trinket', 'Ancient Charm');
         } else if (objUser.bait == "grubbeen_cheese") {
             // If fuel on, turn off
             if (fuelOn) {
@@ -2524,7 +2524,7 @@ function folkloreForest() {
                 console.log(chumButtonTurnOn);
                 fireEvent(chumButtonTurnOn, 'click');
             }
-            checkThenArm(null, 'trinket', 'Super Cactus Charm');
+            checkThenArm(null, 'trinket', 'Ancient Charm');
         } else {
             // If fuel on, turn off
             if (fuelOn) {
