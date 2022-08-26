@@ -2524,7 +2524,7 @@ function folkloreForest() {
                 console.log(chumButtonTurnOn);
                 fireEvent(chumButtonTurnOn, 'click');
             }
-            checkThenArm(null, 'trinket', 'Ancient Charm');
+            checkThenArm(null, 'trinket', 'Super Cactus Charm');
         } else {
             // If fuel on, turn off
             if (fuelOn) {
