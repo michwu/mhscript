@@ -2449,8 +2449,8 @@ function folkloreForest() {
 
         // Check for ability to simultaneously plant 3 tier-2s
         var canPlantThreeTierTwo = false;
-        if (parseInt(mythicalMulchNumber, 10) >= 60) {
-            if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber, 10) >= 30) {
+        if (parseInt(mythicalMulchNumber.replace(/,/g, '')) >= 60) {
+            if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber.replace(/,/g, '')) >= 30) {
                 for (let i = 0; i < 3; i++) {
                     if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
                         break;
