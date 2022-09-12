@@ -2544,7 +2544,7 @@ function folkloreForest() {
         var wordCount = objUser.current_book.word_count;
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
-	var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0]
+        var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0]
 
         // claim
         if (objUser.can_claim) {
@@ -2556,8 +2556,9 @@ function folkloreForest() {
         }
 
         // start epic run if enough 2nd draft and not enough FD
-        if (parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[1].textContent) >= 25 &&
-            parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[2].textContent) < 40) {
+        if (parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[1].textContent) >= 25) {
+            // && parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[2].textContent) < 40) {
+            console.log("CHAP");
             var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
             if (objUser.can_start && startButton.length > 0) {
                 fireEvent(startButton[0], 'click')
