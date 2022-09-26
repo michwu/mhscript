@@ -2566,7 +2566,6 @@ function folkloreForest() {
                 fireEvent(secondDerbyButton, 'click')
                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
                 fireEvent(confirmButton, 'click');
-                fireEvent(fuelButton, 'click');
             }
         }
 
