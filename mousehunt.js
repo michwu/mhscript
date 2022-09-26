@@ -2570,7 +2570,7 @@ function folkloreForest() {
             }
         }
 
-        var needFuel = (2000 - wordCount + 82) / huntsRemaining > 82.0;
+        var needFuel = (2000 - wordCount + 123) / huntsRemaining > 123.0;
 
         if (bait == "second_draft_derby_cheese") {
             if (wordCount >= 2000) {
