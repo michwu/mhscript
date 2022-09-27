@@ -2297,7 +2297,7 @@ function floatingIslands() {
     // Use Best Trap, Charm, and Cheese for SP Boss
     if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
-        checkThenArm(null, 'bait', 'Cloud Cheesecake');
+        checkThenArm(null, 'bait', 'Empowered Brie');
         checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
         //checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
     }
