@@ -2298,7 +2298,7 @@ function floatingIslands() {
     if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
         checkThenArm(null, 'weapon', 'Slumbering Boulder');
         checkThenArm(null, 'bait', 'Empowered Brie');
-        checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+        checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
         //checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
     }
 
