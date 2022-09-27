@@ -2439,6 +2439,7 @@ function folkloreForest() {
         var magicEssenceNumber = objUser.items.magic_essence_craft_item.quantity;
         var mythicalMulchNumber = objUser.items.mythical_mulch_stat_item.quantity;
         var papyrusSeedNumber = objUser.items.papyrus_seed_stat_item.quantity;
+        var cropCoinNumber = objUser.items.crop_coin_stat_item.quantity;
 
 //         var canClaim = objUser.harvest_bin.can_claim;
 
@@ -2447,9 +2448,35 @@ function folkloreForest() {
 //             fireEvent(claimButton, 'click');
 //         }
 
+        // Check for ability to simultaneously plant 3 tier-3s
+        var canPlantThreeTierThree = false;
+
         // Check for ability to simultaneously plant 3 tier-2s
         var canPlantThreeTierTwo = false;
-        if (parseInt(mythicalMulchNumber, 10) >= 60) {
+
+        if (parseInt(cropCoinNumber, 10) >= 300 && parseInt(mythicalMulchNumber, 10) >= 60) {
+            if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber.replace(/,/g, '')) >= 30) {
+                for (let i = 0; i < 3; i++) {
+                    if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
+                        break;
+                    }
+                    if (i == 2) {
+                        canPlantThreeTierThree = true;
+                    }
+                }
+
+                if (canPlantThreeTierThree) {
+                    for (let i = 0; i < 3; i++) {
+                        var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
+                        fireEvent(plantButton, 'click');
+                        var queueButtonParable = document.getElementsByClassName('folkloreForestRegionView-button big')[5];
+                        fireEvent(queueButtonParable, 'click');
+                        var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton')[0];
+                        fireEvent(closeButton, 'click');
+                    }
+                }
+            }
+        } else if (parseInt(mythicalMulchNumber, 10) >= 60) {
             if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber.replace(/,/g, '')) >= 30) {
                 for (let i = 0; i < 3; i++) {
                     if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
