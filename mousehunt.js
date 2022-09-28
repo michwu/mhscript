@@ -2063,9 +2063,6 @@ function Render(islandStatus)
         var best = [null, 0]
     for (powerType in islandStatus)
     {
-        if (powerType == "Physical") continue;
-        if (powerType == "Shadow") continue;
-       // else
         if (islandStatus[powerType][4] >= best[1]){
             best[0] = powerType
             best[1] = islandStatus[powerType][4]
@@ -2242,11 +2239,11 @@ function floatingIslands() {
     }
 
     // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
-//     if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
-//         fireEvent(fuelButton, 'click');
-//     } else if ((isHighTierIsland || isLowTierIsland) && islandProgress != 37 && isFuelEnabled) {
-//         fireEvent(fuelButton, 'click');
-//     }
+     if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
+         fireEvent(fuelButton, 'click');
+     } else if ((isHighTierIsland || isLowTierIsland) && islandProgress != 37 && isFuelEnabled) {
+         fireEvent(fuelButton, 'click');
+     }
 
     // Retreat once LAI fully explored.
     if (canRetreat && !isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && currentBait != "Sky Pirate Swiss Cheese") {
@@ -2332,11 +2329,11 @@ function floatingIslands() {
     }
 
     // Enable fuel
-      if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
-         fireEvent(fuelButton, 'click');
-      } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
-         fireEvent(fuelButton, 'click');
-      }
+    //  if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
+    //     fireEvent(fuelButton, 'click');
+    //  } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
+    //     fireEvent(fuelButton, 'click');
+    //  }
 
 //     var jetstreamP = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-windLevelPointer')[0];
 //     var jetstreamS = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-statIndicator')[0];
