@@ -2237,7 +2237,7 @@ function floatingIslands() {
 
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Chrome Thought Obliterator');
+        checkThenArm(null, 'weapon', 'Charming PrinceBot');
         checkThenArm(null, 'bait', 'Empowered Brie');
     }
 
@@ -2284,7 +2284,7 @@ function floatingIslands() {
        //checkThenArm(null, 'trinket', 'Eggstra Charm');
     } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
-       checkThenArm(null, 'weapon', 'Slumbering Boulder');
+       checkThenArm(null, 'weapon', 'Charming PrinceBot');
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
@@ -2296,7 +2296,7 @@ function floatingIslands() {
 
     // Use Best Trap, Charm, and Cheese for SP Boss
     if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Slumbering Boulder');
+        checkThenArm(null, 'weapon', 'Charming PrinceBot');
         checkThenArm(null, 'bait', 'Empowered Brie');
         checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
         //checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
