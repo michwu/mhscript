@@ -2463,6 +2463,7 @@ function folkloreForest() {
                 }
 
                 if (canPlantThreeTierThree) {
+		    checkThenArm(null, 'trinket', 'Rift Charm');
                     for (let i = 0; i < 3; i++) {
                         var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
                         fireEvent(plantButton, 'click');
@@ -2485,6 +2486,7 @@ function folkloreForest() {
                 }
 
                 if (canPlantThreeTierTwo) {
+		    disarmTrap('trinket');
                     for (let i = 0; i < 3; i++) {
                         var plantButton = document.getElementsByClassName('forewordFarmPlotView-plot-plantButton')[i];
                         fireEvent(plantButton, 'click');
@@ -2496,6 +2498,7 @@ function folkloreForest() {
                 }
             }
         } else {
+	    disarmTrap('trinket');
             // Check for ability to plant tier-1 outright
             for (let i = 0; i < 3; i++) {
                 if (objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing) {
