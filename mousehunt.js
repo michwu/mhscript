@@ -2451,7 +2451,7 @@ function folkloreForest() {
         // Check for ability to simultaneously plant 3 tier-2s
         var canPlantThreeTierTwo = false;
 
-        if (parseInt(cropCoinNumber.replace(/,/g, '')) >= 300 && parseInt(mythicalMulchNumber, 10) >= 60) {
+        if (cropCoinNumber >= 300 && mythicalMulchNumber >= 60) {
             if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber.replace(/,/g, '')) >= 30) {
                 for (let i = 0; i < 3; i++) {
                     if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
@@ -2474,7 +2474,7 @@ function folkloreForest() {
                     }
                 }
             }
-        } else if (parseInt(mythicalMulchNumber, 10) >= 60) {
+        } else if (mythicalMulchNumber >= 60) {
             if (parseInt(magicEssenceNumber.replace(/,/g, '')) >= 9 && parseInt(papyrusSeedNumber.replace(/,/g, '')) >= 30) {
                 for (let i = 0; i < 3; i++) {
                     if (!(objUser.plots[i].can_plant_anything && !objUser.plots[i].is_growing)) {
