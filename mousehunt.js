@@ -2382,7 +2382,11 @@ function quesoGeyser() {
 }
 
 function halloween2021_clickcauldron(objUser, cauldron1, cauldron2) {
-    if (objUser.cauldrons[0].queue[0].type == null) {
+    if (objUser.cauldrons[0].is_brewing == null) {
+        fireEvent(cauldron1, 'click');
+    } else if (objUser.cauldrons[1].is_brewing == null) {
+        fireEvent(cauldron2, 'click');
+    } else if (objUser.cauldrons[0].queue[0].type == null) {
         fireEvent(cauldron1, 'click');
     } else if (objUser.cauldrons[1].queue[0].type == null) {
         fireEvent(cauldron2, 'click');
