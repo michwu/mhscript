@@ -5472,6 +5472,19 @@ function getTrapList(category) {
     }
 }
 
+const testopen = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = function () {
+    this.addEventListener("load", async function () {
+        if (
+            this.responseURL ==
+            `https://www.mousehuntgame.com/managers/ajax/users/marketplace.php`
+        ) {
+            // console.log('detected');
+        }
+    })
+    testopen.apply(this, arguments);
+}
+
 function clearTrapList(category) {
     var arrObjList;
     if (category === null || category === undefined)
@@ -6070,10 +6083,16 @@ function retrieveDataFirst() {
 }
 
 function GetHornTime() {
-    var huntTimerElement = document.getElementById('huntTimer');
+    const horn_element = document.querySelector('.huntersHornView__horn');
+    const hunt_timer = document.querySelector(".huntersHornView__countdown");
+    let message;
+    if (hunt_timer) {
+        message = hunt_timer.innerText;
+    }
+    var huntTimerElement = hunt_timer;
     var totalSec = 900;
     if (huntTimerElement !== null) {
-        huntTimerElement = huntTimerElement.textContent;
+        huntTimerElement = message;
         if (huntTimerElement.toLowerCase().indexOf('ready') > -1)
             totalSec = 0;
         else if (isNewUI) {
@@ -6089,6 +6108,7 @@ function GetHornTime() {
                 totalSec = temp * 60;
         }
     }
+    console.log(totalSec);
     return totalSec;
 }
 
@@ -9899,21 +9919,19 @@ function addGoogleAd() {
 //   Horn Function - Start
 // ################################################################################################
 
+
 function soundHorn() {
     if (debug) console.log("RUN %csoundHorn()", "color: #FF7700");
     if (debug) console.log("Time now is " + (new Date()));
     if (debug) {
         console.log(document.getElementById("mousehuntHud").cloneNode(true));
         console.log("huntTimer:");
-        console.log(document.getElementById("huntTimer").cloneNode(true));
+        // console.log(document.getElementById("huntTimer").cloneNode(true));
     }
-
     if (doubleCheckLocation()) {
         // update timer
         displayTimer("Ready to Blow The Horn...", "Ready to Blow The Horn...", "Ready to Blow The Horn...");
-
         var hornElement;
-
         // lol what is this even for
         var scriptNode = document.getElementById("scriptNode");
         if (debug) console.log("What is this: ");
@@ -9922,90 +9940,72 @@ function soundHorn() {
             scriptNode.setAttribute("soundedHornAtt", "false");
         }
         scriptNode = null;
-
         if (!aggressiveMode) {
             // safety mode, check the horn image is there or not before sound the horn
-            var headerElement = document.getElementById(header);
-
+            var headerElement = document.querySelector('.huntersHornView');
             if (headerElement) {
-                headerElement = headerElement.firstChild;
-                var headerStatus = headerElement.getAttribute('class');
-                if (headerStatus.indexOf(hornReady) !== -1) {
+                // headerElement = headerElement.firstChild;
+                var headerStatus = headerElement.querySelector('.huntersHornView__timerState.huntersHornView__timerState--type-ready');
+                if (headerStatus.checkVisibility()) {
                     // found the horn image, let's sound the horn!
-                    if (debug) console.log("Header status prior to sounding horn: " + headerStatus);
-
+                    if (debug) console.log("Header status prior to sounding horn: " + headerStatus.textContent);
                     // update timer
                     displayTimer("Blowing The Horn...", "Blowing The Horn...", "Blowing The Horn...");
-
                     // simulate mouse click on the horn
-                    hornElement = document.getElementsByClassName(hornButton)[0].firstChild;
-                    fireEvent(hornElement, 'click');
-                    hornElement = null;
-
+                    // hornElement = headerStatus;
+                    // fireEvent(hornElement, 'click');
+                    // hornElement = null;
+                    sound_horn();
                     // NOB hunt until
                     NOBhuntsLeft--;
                     nobStore(NOBhuntsLeft, 'huntsLeft');
-
                     // clean up
                     headerElement = null;
                     headerStatus = null;
-
                     // double check if the horn was already sounded
                     window.setTimeout(function () {
                         afterSoundingHorn()
                     }, 5000);
-                } else if (headerStatus.indexOf("hornsounding") != -1 || headerStatus.indexOf("hornsounded") != -1) {
-                    // some one just sound the horn...
-
-                    // update timer
-                    displayTimer("Synchronizing Data...", "Someone had just sound the horn. Synchronizing data...", "Someone had just sound the horn. Synchronizing data...");
-
-                    // NOB hunt until
-                    NOBhuntsLeft--;
-                    nobStore(NOBhuntsLeft, 'huntsLeft');
-
-                    // clean up
-                    headerElement = null;
-                    headerStatus = null;
-
-                    // load the new data
-                    window.setTimeout(function () {
-                        afterSoundingHorn()
-                    }, 5000);
-                } else if (headerStatus.indexOf("hornwaiting") != -1) {
-                    // the horn is not appearing, let check the time again
-
-                    // update timer
-                    displayTimer("Synchronizing Data...", "Hunter horn is not ready yet. Synchronizing data...", "Hunter horn is not ready yet. Synchronizing data...");
-
-                    // sync the time again, maybe user already click the horn
-                    retrieveData();
-
-                    checkJournalDate();
-
-                    // clean up
-                    headerElement = null;
-                    headerStatus = null;
-
-                    // loop again
-                    window.setTimeout(function () {
-                        countdownTimer()
-                    }, timerRefreshInterval * 1000);
+//                 } else if (headerStatus.indexOf("hornsounding") != -1 || headerStatus.indexOf("hornsounded") != -1) {
+//                     // some one just sound the horn...
+//                     // update timer
+//                     displayTimer("Synchronizing Data...", "Someone had just sound the horn. Synchronizing data...", "Someone had just sound the horn. Synchronizing data...");
+//                     // NOB hunt until
+//                     NOBhuntsLeft--;
+//                     nobStore(NOBhuntsLeft, 'huntsLeft');
+//                     // clean up
+//                     headerElement = null;
+//                     headerStatus = null;
+//                     // load the new data
+//                     window.setTimeout(function () {
+//                         afterSoundingHorn()
+//                     }, 5000);
+//                 } else if (headerStatus.indexOf("hornwaiting") != -1) {
+//                     // the horn is not appearing, let check the time again
+//                     // update timer
+//                     displayTimer("Synchronizing Data...", "Hunter horn is not ready yet. Synchronizing data...", "Hunter horn is not ready yet. Synchronizing data...");
+//                     // sync the time again, maybe user already click the horn
+//                     retrieveData();
+//                     checkJournalDate();
+//                     // clean up
+//                     headerElement = null;
+//                     headerStatus = null;
+//                     // loop again
+//                     window.setTimeout(function () {
+//                         countdownTimer()
+//                     }, timerRefreshInterval * 1000);
                 } else {
                     // some one steal the horn!
-
                     // update timer
                     displayTimer("Synchronizing Data...", "Hunter horn is missing. Synchronizing data...", "Hunter horn is missing. Synchronizing data...");
-
                     // try to click on the horn
-                    hornElement = document.getElementsByClassName(hornButton)[0].firstChild;
-                    fireEvent(hornElement, 'click');
-                    hornElement = null;
-
+                    // hornElement = document.getElementsByClassName(hornButton)[0].firstChild;
+                    // fireEvent(hornElement, 'click');
+                    // hornElement = null;
+                    sound_horn();
                     // clean up
                     headerElement = null;
                     headerStatus = null;
-
                     // double check if the horn was already sounded
                     window.setTimeout(function () {
                         afterSoundingHorn()
@@ -10013,20 +10013,16 @@ function soundHorn() {
                 }
             } else {
                 // something wrong, can't even found the header...
-
                 // clean up
                 headerElement = null;
-
                 // reload the page see if thing get fixed
                 reloadWithMessage("Fail to find the horn header. Reloading...", false);
             }
-
         } else {
             // aggressive mode, ignore whatever horn image is there or not, just sound the horn!
-
             // simulate mouse click on the horn
-            fireEvent(document.getElementsByClassName(hornButton)[0].firstChild, 'click');
-
+            // fireEvent(document.getElementsByClassName(hornButton)[0].firstChild, 'click');
+            sound_horn();
             // double check if the horn was already sounded
             window.setTimeout(function () {
                 afterSoundingHorn()
@@ -10038,41 +10034,56 @@ function soundHorn() {
     }
 }
 
-function afterSoundingHorn() {
+function sound_horn() {
+    const horn = document.querySelector('.huntersHornView__horn');
+    if (horn) {
+        const clickEvent = new MouseEvent("mousedown", {
+            bubbles: true, // Bubble up the dom.
+            cancelable: true,
+        });
+        horn.dispatchEvent(clickEvent);
+        // Wait for the animation to finish.
+        setTimeout(() => {
+            const clickEvent = new MouseEvent("mouseup", {
+                bubbles: true, // Bubble up the dom.
+                cancelable: true,
+            });
+            horn.dispatchEvent(clickEvent);
+        }
+                   , 250);
+    }
+}
+
+	function afterSoundingHorn() {
     if (debug) console.log("RUN %cafterSoundingHorn()", "color: #bada55");
     var scriptNode = document.getElementById("scriptNode");
     if (scriptNode) {
         scriptNode.setAttribute("soundedHornAtt", "false");
     }
     scriptNode = null;
-
-    var headerElement = document.getElementById(header);
+    var headerElement = document.querySelector('.huntersHornView');
     if (headerElement) {
         //if (isNewUI)
-        headerElement = headerElement.firstChild;
+        // headerElement = headerElement.firstChild;
         // double check if the horn image is still visible after the script already sound it
-        var headerStatus = headerElement.getAttribute('class');
-        if (headerStatus.indexOf(hornReady) != -1) {
+        var headerStatus = headerElement.querySelector('.huntersHornView__timerState.huntersHornView__timerState--type-ready');
+        if (headerStatus.checkVisibility()) {
             // seen like the horn is not functioning well
-
             // update timer
             displayTimer("Blowing The Horn Again...", "Blowing The Horn Again...", "Blowing The Horn Again...");
-
             // simulate mouse click on the horn
-            var hornElement = document.getElementsByClassName(hornButton)[0].firstChild;
-            fireEvent(hornElement, 'click');
-            hornElement = null;
-
+            // var hornElement = headerStatus;
+            // fireEvent(hornElement, 'click');
+            // hornElement = null;
+            sound_horn();
             // clean up
             headerElement = null;
             headerStatus = null;
-
             // increase the horn retry counter and check if the script is caught in loop
             ++hornRetry;
             if (hornRetry > hornRetryMax) {
                 // reload the page see if thing get fixed
                 reloadWithMessage("Detected script caught in loop. Reloading...", true);
-
                 // reset the horn retry counter
                 hornRetry = 0;
             } else {
@@ -10081,56 +10092,47 @@ function afterSoundingHorn() {
                     afterSoundingHorn()
                 }, 1000);
             }
-        } else if (headerStatus.indexOf("hornsounding") != -1) {
-            // the horn is already sound, but the network seen to slow on fetching the data
-
-            // update timer
-            displayTimer("The horn sounding taken extra longer than normal...", "The horn sounding taken extra longer than normal...", "The horn sounding taken extra longer than normal...");
-
-            // clean up
-            headerElement = null;
-            headerStatus = null;
-
-            // increase the horn retry counter and check if the script is caugh in loop
-            ++hornRetry;
-            if (hornRetry > hornRetryMax) {
-                // reload the page see if thing get fixed
-                reloadWithMessage("Detected script caught in loop. Reloading...", true);
-
-                // reset the horn retry counter
-                hornRetry = 0;
-            } else {
-                // check again later
-                window.setTimeout(function () {
-                    afterSoundingHorn()
-                }, 3000);
-            }
+//         } else if (headerStatus.indexOf("hornsounding") != -1) {
+//             // the horn is already sound, but the network seen to slow on fetching the data
+//             // update timer
+//             displayTimer("The horn sounding taken extra longer than normal...", "The horn sounding taken extra longer than normal...", "The horn sounding taken extra longer than normal...");
+//             // clean up
+//             headerElement = null;
+//             headerStatus = null;
+//             // increase the horn retry counter and check if the script is caugh in loop
+//             ++hornRetry;
+//             if (hornRetry > hornRetryMax) {
+//                 // reload the page see if thing get fixed
+//                 reloadWithMessage("Detected script caught in loop. Reloading...", true);
+//                 // reset the horn retry counter
+//                 hornRetry = 0;
+//             } else {
+//                 // check again later
+//                 window.setTimeout(function () {
+//                     afterSoundingHorn()
+//                 }, 3000);
+//             }
         } else {
             // everything look ok
-
             // update timer
             displayTimer("Horn sounded. Synchronizing Data...", "Horn sounded. Synchronizing data...", "Horn sounded. Synchronizing data...");
-
             // reload data
             retrieveData();
-
             // clean up
             headerElement = null;
             headerStatus = null;
-
             // script continue as normal
             window.setTimeout(function () {
                 countdownTimer()
             }, timerRefreshInterval * 1000);
-
             // reset the horn retry counter
             hornRetry = 0;
         }
     }
-
     // Too many event location checks .-.
     //eventLocationCheck();
 }
+
 
 function embedScript() {
     // create a javascript to detect if user click on the horn manually
@@ -10145,7 +10147,6 @@ function embedScript() {
     }\
     scriptNode = null;\
     }';
-
     // find the head node and insert the script into it
     var headerElement;
     if (fbPlatform || hiFivePlatform || mhPlatform) {
@@ -10156,19 +10157,16 @@ function embedScript() {
     headerElement.parentNode.insertBefore(scriptNode, headerElement);
     scriptNode = null;
     headerElement = null;
-
     nobTestBetaUI();
-
     // change the function call of horn
-    var hornButtonLink = document.getElementsByClassName(hornButton)[0].firstChild;
-    var oriStr = hornButtonLink.getAttribute('onclick').toString();
-    var index = oriStr.indexOf('return false;');
-    var modStr = oriStr.substring(0, index) + 'soundedHorn();' + oriStr.substring(index);
+    var hornButtonLink = document.querySelector('.huntersHornView__horn');
+    // var oriStr = hornButtonLink.getAttribute('onclick').toString();
+    // var index = oriStr.indexOf('return false;');
+    var modStr = 'soundedHorn();';
     hornButtonLink.setAttribute('onclick', modStr);
-
     hornButtonLink = null;
-    oriStr = null;
-    index = null;
+    // oriStr = null;
+    // index = null;
     modStr = null;
 }
 
