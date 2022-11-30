@@ -2238,6 +2238,11 @@ function floatingIslands() {
         checkThenArm(null, 'bait', 'Empowered Brie');
     }
 
+    // Arm specific bait for HAI paragon.
+    if (isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
+        checkThenArm(null, 'bait', 'Empowered Brie');
+    }
+
     // Fuel if step = 37 for HAI or LAI. Disable fuel if not 37
      if ((isHighTierIsland || isLowTierIsland) && islandProgress == 37 && !isFuelEnabled) {
          fireEvent(fuelButton, 'click');
@@ -2259,6 +2264,13 @@ function floatingIslands() {
             }
             checkThenArm(null, 'weapon', savedTrap);
         }
+        if (savedBait != "") {
+            checkThenArm(null, 'bait', savedBait);
+        }
+    }
+
+    // After HAI paragon is defeated, arm original trap and cheese.
+    if (isHighTierIsland && !isVaultIsland && hasDefeatedEnemy) {
         if (savedBait != "") {
             checkThenArm(null, 'bait', savedBait);
         }
