@@ -2286,6 +2286,7 @@ function floatingIslands() {
     // SP Stuff below ----------------------------------------------------------------------
     var isSpPirate = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "sky_pirates";
     var isSpJade = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "charm_bonus";
+    var isSpGlore = isVaultIsland && objUser.hunting_site_atts.island_mod_types[3] == "ore_gem_bonus";
 
     // Arm ERCC automatically. For pirate, arm sky pirate after 20 steps.
     if (isVaultIsland && islandProgress == 0) {
@@ -2296,10 +2297,10 @@ function floatingIslands() {
        checkThenArm(null, 'weapon', 'Charming PrinceBot');
     }
 
-    // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP.
+    // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP unless Jade or Glore.
     if (isVaultIsland && islandProgress < 30 && !isFuelEnabled) {
        fireEvent(fuelButton, 'click');
-    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled && !isSpJade) {
+    } else if (isVaultIsland && islandProgress >= 30 && isFuelEnabled && !(isSpJade || isSpGlore)) {
        fireEvent(fuelButton, 'click');
     }
 
@@ -2312,7 +2313,7 @@ function floatingIslands() {
     }
 
     // Retreat SP Jade island after exploring.
-    if (canRetreat && isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && isSpJade) {
+    if (canRetreat && isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && (isSpJade || isSpGlore)) {
       fireEvent(classButton, 'click');
       fireEvent(confirmButton, 'click');
     }
