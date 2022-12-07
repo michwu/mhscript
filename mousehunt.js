@@ -2744,11 +2744,11 @@ function Halloween2016() {
 function gwh2021() {
     var objUser;
 
-    if (GetCurrentLocation().indexOf("Cinnamon Hill") > 0) {
+    if (GetCurrentLocation().indexOf("Cinnamon Hill") >= 0) {
         objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestCinnamonTreeGrove)'));
-    } else if (GetCurrentLocation().indexOf("Golem Workshop") > 0) {
+    } else if (GetCurrentLocation().indexOf("Golem Workshop") >= 0) {
         objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestGolemWorkshop)'));
-    } else if (GetCurrentLocation().indexOf("Ice Fortress") > 0) {
+    } else if (GetCurrentLocation().indexOf("Ice Fortress") >= 0) {
         objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestIceFortress)'));
     }
 
