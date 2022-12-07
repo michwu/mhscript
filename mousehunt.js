@@ -2313,10 +2313,10 @@ function floatingIslands() {
     }
 
     // Retreat SP Jade island after exploring.
-    if (canRetreat && isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && (isSpJade || isSpGlore)) {
-      fireEvent(classButton, 'click');
-      fireEvent(confirmButton, 'click');
-    }
+//     if (canRetreat && isVaultIsland && hasDefeatedEnemy && islandProgress >= 40 && (isSpJade || isSpGlore)) {
+//       fireEvent(classButton, 'click');
+//       fireEvent(confirmButton, 'click');
+//     }
 
     // After SP Boss is defeated, arm original
     if (isVaultIsland && hasDefeatedEnemy) {
@@ -2742,39 +2742,39 @@ function Halloween2016() {
 }
 
 function gwh2021() {
-    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestWinterHunt2021)'));
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestCinnamonTreeGrove)'));
     console.log(objUser);
          console.log(document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton'));
 
     if (objUser.golems[0].can_claim) {
-      var claim1 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[3];
+      var claim1 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemClaimRewardButton')[0];
       fireEvent(claim1, 'click');
     }
     if (objUser.golems[1].can_claim) {
-      var claim2 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[7];
+      var claim2 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemClaimRewardButton')[1];
       fireEvent(claim2, 'click');
     }
 
     if (objUser.golems[2].can_claim) {
-      var claim3 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[11];
+      var claim3 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemClaimRewardButton')[2];
       fireEvent(claim3, 'click');
     }
     if (objUser.golems[0].can_build) {
-      var claim1 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[1];
+      var claim1 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[1];
       fireEvent(claim1, 'click');
-      var launch1 = document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton')[0];
+      var launch1 = document.getElementsByClassName('greatWinterHuntDialogView__bigButton')[0];
       fireEvent(launch1, 'click');
     }
     if (objUser.golems[1].can_build) {
-      var claim2 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[5];
+      var claim2 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[3];
       fireEvent(claim2, 'click');
-      var launch2 = document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton')[0];
+      var launch2 = document.getElementsByClassName('greatWinterHuntDialogView__bigButton')[0];
       fireEvent(launch2, 'click');
     }
     if (objUser.golems[2].can_build) {
-      var claim3 = document.getElementsByClassName('winterHunt2021HUD-golemBuilder-golemButton')[9];
+      var claim3 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[5];
       fireEvent(claim3, 'click');
-      var launch3 = document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton')[0];
+      var launch3 = document.getElementsByClassName('greatWinterHuntDialogView__bigButton')[0];
       fireEvent(launch3, 'click');
     }
 }
