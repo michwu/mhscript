@@ -2742,9 +2742,17 @@ function Halloween2016() {
 }
 
 function gwh2021() {
-    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestCinnamonTreeGrove)'));
+    var objUser;
+
+    if (GetCurrentLocation().indexOf("Cinnamon Hill") > 0) {
+        objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestCinnamonTreeGrove)'));
+    } else if (GetCurrentLocation().indexOf("Golem Workshop") > 0) {
+        objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestGolemWorkshop)'));
+    } else if (GetCurrentLocation().indexOf("Ice Fortress") > 0) {
+        objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestIceFortress)'));
+    }
+
     console.log(objUser);
-         console.log(document.getElementsByClassName('winterHunt2021HUD-popup-sendGolemButton'));
 
     if (objUser.golems[0].can_claim) {
       var claim1 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemClaimRewardButton')[0];
@@ -2760,20 +2768,20 @@ function gwh2021() {
       fireEvent(claim3, 'click');
     }
     if (objUser.golems[0].can_build) {
-      var claim1 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[1];
-      fireEvent(claim1, 'click');
+      var build1 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[1];
+      fireEvent(build1, 'click');
       var launch1 = document.getElementsByClassName('greatWinterHuntDialogView__bigButton')[0];
       fireEvent(launch1, 'click');
     }
     if (objUser.golems[1].can_build) {
-      var claim2 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[3];
-      fireEvent(claim2, 'click');
+      var build2 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[3];
+      fireEvent(build2, 'click');
       var launch2 = document.getElementsByClassName('greatWinterHuntDialogView__bigButton')[0];
       fireEvent(launch2, 'click');
     }
     if (objUser.golems[2].can_build) {
-      var claim3 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[5];
-      fireEvent(claim3, 'click');
+      var build3 = document.getElementsByClassName('headsUpDisplayWinterHuntRegionView__golemBuildButton')[5];
+      fireEvent(build3, 'click');
       var launch3 = document.getElementsByClassName('greatWinterHuntDialogView__bigButton')[0];
       fireEvent(launch3, 'click');
     }
