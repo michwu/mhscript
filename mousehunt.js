@@ -571,7 +571,7 @@ function FinalizePuzzleImageAnswer(answer) {
         //Submit answer
 
         //var puzzleAns = document.getElementById("puzzle_answer");
-        var puzzleAns = document.getElementsByClassName("mousehuntPage-puzzle-form-code")[0];
+        var puzzleAns = document.getElementsByClassName("puzzleView__code")[0];
 
         if (!puzzleAns) {
             if (debug) console.plog("puzzleAns: " + puzzleAns);
@@ -581,12 +581,14 @@ function FinalizePuzzleImageAnswer(answer) {
         puzzleAns.value = answer.toLowerCase();
 
         //var puzzleSubmit = document.getElementById("puzzle_submit");
-        var puzzleSubmit = document.getElementsByClassName("mousehuntPage-puzzle-form-code-button")[0];
+        var puzzleSubmit = document.getElementsByClassName("puzzleView__solveButton")[0];
 
         if (!puzzleSubmit) {
             if (debug) console.plog("puzzleSubmit: " + puzzleSubmit);
             return;
         }
+
+        puzzleSubmit.classList.remove("disabled");
 
         fireEvent(puzzleSubmit, 'click');
         kingsRewardRetry = 0;
@@ -649,11 +651,12 @@ function CallKRSolver() {
     } else {
         //if (isNewUI) {
 
-        img = document.getElementsByClassName('mousehuntPage-puzzle-form-captcha-image')[0];
+        img = document.getElementsByClassName('puzzleView__image')[0].firstChild;
         if (debug) console.log("Captcha Image fetched:")
         if (debug) console.log(img);
 
-        frame.src = img.querySelector('img').src;
+        //frame.src = img.querySelector('img').src;
+        frame.src = img.src;
         /*} else {
             img = document.getElementById('puzzleImage');
             frame.src = img.src;
@@ -663,8 +666,8 @@ function CallKRSolver() {
 }
 
 function CheckKRAnswerCorrectness() {
-    var puzzleForm = document.getElementsByClassName("mousehuntPage-puzzle-formContainer")[0];
-    if (puzzleForm.classList.contains("noPuzzle")) {
+    var puzzleForm = document.getElementsByClassName("puzzleView")[0];
+    if (puzzleForm.classList.contains("puzzleView--state-solved")) {
         // KR is solved clicking continue now
         location.reload(true)
         resumeKRAfterSolved();
@@ -1967,21 +1970,21 @@ function vRift() {
     var classButton = document.getElementsByClassName('valourRiftHUD-fuelContainer-armButton')[0];
     var bTowerActive = objUser.is_fuel_enabled;
 
-  //  if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
-      // Enable
-    //  fireEvent(classButton, 'click');
-    //} else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
-      // Disable
-      //fireEvent(classButton, 'click');
-    //}
-
-    if (objUser.is_at_eclipse || objUser.floor_type == 8) {
-       checkThenArm(null, 'trinket', 'Ultimate Charm');
-       checkThenArm(null, 'base', 'Gift of the Day Base');
-    } else if (objUser.state != "farming") {
-       checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
-       checkThenArm(null, 'base', 'Signature Series Denture Base');
+   if ((objUser.is_at_eclipse || objUser.floor_type == 8) && !bTowerActive) {
+      //Enable
+     fireEvent(classButton, 'click');
+    } else if (!(objUser.is_at_eclipse || objUser.floor_type == 8) && bTowerActive) {
+      //Disable
+      fireEvent(classButton, 'click');
     }
+
+//     if (objUser.is_at_eclipse || objUser.floor_type == 8) {
+//        checkThenArm(null, 'trinket', 'Ultimate Charm');
+//        checkThenArm(null, 'base', 'Gift of the Day Base');
+//     } else if (objUser.state != "farming") {
+//        checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
+//        checkThenArm(null, 'base', 'Signature Series Denture Base');
+//     }
 
     if (objUser.state == "farming") {
       console.log("FARM");
@@ -2342,11 +2345,11 @@ function floatingIslands() {
     }
 
     // Enable fuel
-    //  if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
-    //     fireEvent(fuelButton, 'click');
-    //  } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
-    //     fireEvent(fuelButton, 'click');
-    //  }
+//      if (!isFuelEnabled && (isLowTierIsland || isHighTierIsland) && islandProgress <= 37) {
+//         fireEvent(fuelButton, 'click');
+//      } else if ((isHighTierIsland || isLowTierIsland) && islandProgress > 37 && isFuelEnabled) {
+//         fireEvent(fuelButton, 'click');
+//      }
 
 //     var jetstreamP = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-windLevelPointer')[0];
 //     var jetstreamS = document.getElementsByClassName('QuestFloatingIslandsJetStreamCampHUD-statIndicator')[0];
@@ -2364,7 +2367,7 @@ function floatingIslands() {
 //     }
 
     var currentTimeHour = new Date().getHours();
-    var autoEnterHAI = false; //currentTimeHour >= 0 && currentTimeHour <= 8;
+    var autoEnterHAI = currentTimeHour >= 0 && currentTimeHour <= 8;
 
     // Automatically enter next island if LAI, or between 00:00 and 09:59 for HAI.
     var skyWardensCaught = objUser.hunting_site_atts.sky_wardens_caught;
@@ -2743,12 +2746,16 @@ function Halloween2016() {
 
 function gwh2021() {
     var objUser;
+    console.log('gwhhh');
 
     if (GetCurrentLocation().indexOf("Cinnamon Hill") >= 0) {
+        console.log('chap');
         objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestCinnamonTreeGrove)'));
     } else if (GetCurrentLocation().indexOf("Golem Workshop") >= 0) {
+        console.log('chap1');
         objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestGolemWorkshop)'));
     } else if (GetCurrentLocation().indexOf("Ice Fortress") >= 0) {
+        console.log('chap2');
         objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestIceFortress)'));
     }
 
@@ -10320,19 +10327,8 @@ function kingRewardAction() {
     }, 2000);
 
     // focus on the answer input
-    var inputElementList = document.getElementsByTagName('input');
-    if (inputElementList) {
-        var i;
-        for (i = 0; i < inputElementList.length; ++i) {
-            // check if it is a resume button
-            if (inputElementList[i].getAttribute('name') == "puzzle_answer") {
-                inputElementList[i].focus();
-                break;
-            }
-        }
-        i = null;
-    }
-    inputElementList = null;
+    var inputKingsReward = document.getElementsByClassName('puzzleView__code')[0];
+    inputKingsReward.focus();
 
     // record last king's reward time
     var nowDate = new Date();
