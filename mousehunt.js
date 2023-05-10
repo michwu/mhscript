@@ -1332,6 +1332,9 @@ function eventLocationCheck(caller) {
         case 'Folklore Forest':
             folkloreForest();
             break;
+        case 'Bountiful Beanstalk':
+            bountifulBeanstalk();
+            break;
         default:
             break;
     }
@@ -2442,6 +2445,26 @@ function halloween2021() {
     var doneButton = document.getElementsByClassName('halloweenBoilingCauldronRecipeView-doneButton')[0];
     if (doneButton) {
         fireEvent(doneButton, 'click');
+    }
+}
+
+function bountifulBeanstalk() {
+    var currentLocation = getPageVariable("user.environment_name");
+    if (GetCurrentLocation().indexOf("Bountiful Beanstalk") < 0)
+        return;
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestBountifulBeanstalk)'));
+    console.log(objUser);
+
+    var isCastleBossEncounter = objUser.castle.is_boss_chase && objUser.castle.is_boss_encounter;
+    var isBeanstalkBossEncounter = objUser.beanstalk.is_boss_encounter;
+
+    var fuelOn = objUser.is_fuel_enabled;
+    var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
+
+    if ((isCastleBossEncounter || isBeanstalkBossEncounter) && !fuelOn) {
+        fireEvent(fuelButton, 'click');
+    } else if (!(isCastleBossEncounter || isBeanstalkBossEncounter) && fuelOn) {
+        fireEvent(fuelButton, 'click');
     }
 }
 
@@ -7369,6 +7392,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="All LG Area">All LG Area</option>';
                 preferenceHTMLStr += '<option value="BC/JOD">BC => JOD</option>';
                 preferenceHTMLStr += '<option value="Birthday">Birthday</option>';
+                preferenceHTMLStr += '<option value="Bountiful Beanstalk">Bountiful Beanstalk</option>';
                 preferenceHTMLStr += '<option value="Bristle Woods Rift">Bristle Woods Rift</option>';
                 preferenceHTMLStr += '<option value="Burroughs Rift(Red)">Burroughs Rift(Red)</option>';
                 preferenceHTMLStr += '<option value="Burroughs Rift(Green)">Burroughs Rift(Green)</option>';
