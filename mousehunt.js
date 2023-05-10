@@ -2461,10 +2461,16 @@ function bountifulBeanstalk() {
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
 
+    // Use CC when encountering beanstalk boss or giant
     if ((isCastleBossEncounter || isBeanstalkBossEncounter) && !fuelOn) {
         fireEvent(fuelButton, 'click');
     } else if (!(isCastleBossEncounter || isBeanstalkBossEncounter) && fuelOn) {
         fireEvent(fuelButton, 'click');
+    }
+
+    // Use regular cheese when encountering giant
+    if (isCastleBossEncounter) {
+        checkThenArm(null, 'bait', 'Gouda Cheese');
     }
 }
 
