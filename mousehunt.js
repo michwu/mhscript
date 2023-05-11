@@ -2461,6 +2461,7 @@ function bountifulBeanstalk() {
     var isCastle = objUser.in_castle;
     var isDungeonFloor = isCastle && objUser.castle.current_floor.type == "dungeon_floor";
     var lootMultiplier = objUser.castle.current_room.loot_multiplier;
+    var nextRoomLootMultiplier = objUser.castle.next_room.loot_multiplier;
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
@@ -2475,7 +2476,14 @@ function bountifulBeanstalk() {
 
     // Dungeon Floor
     if (isDungeonFloor) {
-        if (lootMultiplier == 8) {
+        // Upweight importance of mystery rooms
+        if (objUser.castle.current_room.type.slice(0,1) == "m") {
+            lootMultiplier *= 2;
+        }
+        if (objUser.castle.next_room.type.slice(0,1) == "m") {
+            nextRoomLootMultiplier *= 2;
+        }
+        if (lootMultiplier >= 8) {
             if (objUser.items.royal_beanster_cheese.quantity_unformatted > 40) {
                 checkThenArm(null, 'bait', 'Royal Beanster Cheese');
             } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 40) {
@@ -2496,9 +2504,9 @@ function bountifulBeanstalk() {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
             }
         } else if (lootMultiplier == 2) {
-            if ((lootMultiplier > objUser.castle.next_room.loot_multiplier) || objUser.castle.is_boss_chase) {
+            if ((lootMultiplier > nextRoomLootMultiplier) || objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Beanster Cheese');
-            } else if (lootMultiplier == objUser.castle.next_room.loot_multiplier) {
+            } else if (lootMultiplier == nextRoomLootMultiplier) {
                 if ((objUser.castle.hunts_remaining * 4) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
                     checkThenArm(null, 'bait', 'Beanster Cheese');
                 } else {
