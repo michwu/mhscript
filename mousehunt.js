@@ -2495,12 +2495,14 @@ function bountifulBeanstalk() {
             } else {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
             }
-        } else {
-            if (objUser.castle.next_room.loot_multiplier <= 2) {
+        } else if (lootMultiplier == 2) {
+            if (objUser.castle.next_room.loot_multiplier == 2 && objUser.castle.noise_level >= 120) {
                 checkThenArm(null, 'bait', 'Beanster Cheese');
             } else {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
             }
+        } else {
+            checkThenArm(null, 'bait', 'Gouda Cheese');
         }
     }
 
