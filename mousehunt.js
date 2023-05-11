@@ -2477,10 +2477,10 @@ function bountifulBeanstalk() {
     // Dungeon Floor
     if (isDungeonFloor) {
         // Upweight importance of mystery rooms
-        if (objUser.castle.current_room.type.slice(0,1) == "m") {
+        if (objUser.castle.current_room.type.slice(0,2) == "my") {
             lootMultiplier *= 2;
         }
-        if (objUser.castle.next_room.type.slice(0,1) == "m") {
+        if (objUser.castle.next_room.type.slice(0,2) == "my") {
             nextRoomLootMultiplier *= 2;
         }
         if (lootMultiplier >= 8) {
