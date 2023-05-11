@@ -2488,7 +2488,7 @@ function bountifulBeanstalk() {
         } else if (lootMultiplier == 4) {
             if (objUser.items.royal_beanster_cheese.quantity_unformatted > 40 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
                 checkThenArm(null, 'bait', 'Royal Beanster Cheese');
-            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 40) {
+            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 40 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
                 checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
             } else if (objUser.items.beanster_cheese.quantity_unformatted > 40) {
                 checkThenArm(null, 'bait', 'Beanster Cheese');
