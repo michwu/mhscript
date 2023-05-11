@@ -2496,8 +2496,14 @@ function bountifulBeanstalk() {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
             }
         } else if (lootMultiplier == 2) {
-            if (objUser.castle.next_room.loot_multiplier == 2 && objUser.castle.noise_level >= 120) {
+            if ((lootMultiplier > objUser.castle.next_room.loot_multiplier) || objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Beanster Cheese');
+            } else if (lootMultiplier == objUser.castle.next_room.loot_multiplier) {
+                if ((objUser.castle.hunts_remaining * 4) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
+                    checkThenArm(null, 'bait', 'Beanster Cheese');
+                } else {
+                    checkThenArm(null, 'bait', 'Gouda Cheese');
+                }
             } else {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
             }
