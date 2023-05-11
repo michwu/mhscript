@@ -2456,16 +2456,52 @@ function bountifulBeanstalk() {
     console.log(objUser);
 
     var isCastleBossEncounter = objUser.castle.is_boss_chase && objUser.castle.is_boss_encounter;
-    var isBeanstalkBossEncounter = objUser.beanstalk.is_boss_encounter;
+    //var isBeanstalkBossEncounter = objUser.beanstalk.is_boss_encounter;
+
+    var isCastle = objUser.in_castle;
+    var isDungeonFloor = isCastle && objUser.castle.current_floor.type == "dungeon_floor";
+    var lootMultiplier = objUser.castle.current_room.loot_multiplier;
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
+    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier == 8 && objUser.castle.is_boss_chase);
 
-    // Use CC when encountering beanstalk boss or giant
-    if ((isCastleBossEncounter || isBeanstalkBossEncounter) && !fuelOn) {
+    // Use CC when encountering giant or during giant chase with 8x multipler
+    if (toggleFuelOn && !fuelOn) {
         fireEvent(fuelButton, 'click');
-    } else if (!(isCastleBossEncounter || isBeanstalkBossEncounter) && fuelOn) {
+    } else if (!toggleFuelOn && fuelOn) {
         fireEvent(fuelButton, 'click');
+    }
+
+    // Dungeon Floor
+    if (isDungeonFloor) {
+        if (lootMultiplier == 8) {
+            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 40) {
+                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 40) {
+                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+            } else if (objUser.items.beanster_cheese.quantity_unformatted > 40) {
+                checkThenArm(null, 'bait', 'Beanster Cheese');
+            } else {
+                checkThenArm(null, 'bait', 'Gouda Cheese');
+            }
+        } else if (lootMultiplier == 4) {
+            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 40 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
+                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 40) {
+                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+            } else if (objUser.items.beanster_cheese.quantity_unformatted > 40) {
+                checkThenArm(null, 'bait', 'Beanster Cheese');
+            } else {
+                checkThenArm(null, 'bait', 'Gouda Cheese');
+            }
+        } else {
+            if (objUser.castle.next_room.loot_multiplier <= 2) {
+                checkThenArm(null, 'bait', 'Beanster Cheese');
+            } else {
+                checkThenArm(null, 'bait', 'Gouda Cheese');
+            }
+        }
     }
 
     // Use regular cheese when encountering giant
