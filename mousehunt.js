@@ -2465,7 +2465,7 @@ function bountifulBeanstalk() {
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
-    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier == 8 && objUser.castle.is_boss_chase);
+    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier >= 8 && objUser.castle.is_boss_chase);
 
     // Use CC when encountering giant or during giant chase with 8x multipler
     if (toggleFuelOn && !fuelOn) {
@@ -2484,7 +2484,7 @@ function bountifulBeanstalk() {
             nextRoomLootMultiplier *= 2;
         }
         if (lootMultiplier >= 8) {
-            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 40) {
+            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 20 && objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Royal Beanster Cheese');
             } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 40) {
                 checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
