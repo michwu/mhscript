@@ -2460,6 +2460,7 @@ function bountifulBeanstalk() {
 
     var isCastle = objUser.in_castle;
     var isDungeonFloor = isCastle && objUser.castle.current_floor.type == "dungeon_floor";
+    var isBallroomFloor = isCastle && objUser.castle.current_floor.type == "ballroom_floor";
     var lootMultiplier = objUser.castle.current_room.loot_multiplier;
     var nextRoomLootMultiplier = objUser.castle.next_room.loot_multiplier;
 
@@ -2486,6 +2487,7 @@ function bountifulBeanstalk() {
         if (lootMultiplier >= 8) {
             if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
             } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
                 checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
                 checkThenArm(null, 'trinket', 'Rift Spooky Charm');
@@ -2520,6 +2522,75 @@ function bountifulBeanstalk() {
                 checkThenArm(null, 'bait', 'Beanster Cheese');
             } else if (lootMultiplier == nextRoomLootMultiplier) {
                 if ((objUser.castle.hunts_remaining * 4) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
+                    checkThenArm(null, 'bait', 'Beanster Cheese');
+                } else {
+                    checkThenArm(null, 'bait', 'Gouda Cheese');
+                }
+            } else {
+                checkThenArm(null, 'bait', 'Gouda Cheese');
+            }
+            checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+        } else {
+            checkThenArm(null, 'bait', 'Gouda Cheese');
+            checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            if (isCastleBossEncounter) {
+                checkThenArm(null, 'bait', 'Empowered Brie');
+            }
+        }
+    }
+
+    // Ballroom Floor
+    if (isBallroomFloor) {
+        // Upweight importance of mystery rooms
+        if (objUser.castle.current_room.type.slice(0,2) == "my") {
+            lootMultiplier *= 2;
+        }
+        if (objUser.castle.next_room.type.slice(0,2) == "my") {
+            nextRoomLootMultiplier *= 2;
+        }
+        if (lootMultiplier >= 8) {
+            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1) {
+                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
+                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+            } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
+                checkThenArm(null, 'bait', 'Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            } else {
+                checkThenArm(null, 'bait', 'Gouda Cheese');
+                checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            }
+
+            if (isCastleBossEncounter) {
+                checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
+            }
+        } else if (lootMultiplier == 4) {
+            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
+                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
+                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+            } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
+                checkThenArm(null, 'bait', 'Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            } else {
+                checkThenArm(null, 'bait', 'Gouda Cheese');
+                checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            }
+
+            if (isCastleBossEncounter) {
+                checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
+            }
+        } else if (lootMultiplier == 2) {
+            if ((lootMultiplier > nextRoomLootMultiplier) || objUser.castle.is_boss_chase) {
+                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+            } else if (lootMultiplier == nextRoomLootMultiplier) {
+                if ((objUser.castle.hunts_remaining * 8) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
+                    checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+                } else if ((objUser.castle.hunts_remaining * 4) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
                     checkThenArm(null, 'bait', 'Beanster Cheese');
                 } else {
                     checkThenArm(null, 'bait', 'Gouda Cheese');
