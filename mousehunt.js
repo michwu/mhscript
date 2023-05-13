@@ -2586,7 +2586,7 @@ function bountifulBeanstalk() {
             }
         } else if (lootMultiplier == 2) {
             if ((lootMultiplier > nextRoomLootMultiplier) || objUser.castle.is_boss_chase) {
-                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+                checkThenArm(null, 'bait', 'Beanster Cheese');
             } else if (lootMultiplier == nextRoomLootMultiplier) {
                 if ((objUser.castle.hunts_remaining * 8) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
                     checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
