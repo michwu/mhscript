@@ -2500,15 +2500,20 @@ function bountifulBeanstalk() {
                 checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
             }
         } else if (lootMultiplier == 4) {
-            if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
-                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
-                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
-            } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
-                checkThenArm(null, 'bait', 'Beanster Cheese');
-                checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
-            } else {
+            if (lootMultiplier < nextRoomLootMultiplier && !objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
                 checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            } else {
+                if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
+                    checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+                } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
+                    checkThenArm(null, 'bait', 'Beanster Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+                } else {
+                    checkThenArm(null, 'bait', 'Gouda Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+                }
             }
 
             if (isCastleBossEncounter) {
@@ -2564,18 +2569,23 @@ function bountifulBeanstalk() {
                 checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
             }
         } else if (lootMultiplier == 4) {
-            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
-                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
-                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
-            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
-                checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
-                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
-            } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
-                checkThenArm(null, 'bait', 'Beanster Cheese');
-                checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
-            } else {
+            if (lootMultiplier < nextRoomLootMultiplier && !objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
                 checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            } else {
+                if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
+                    checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+                } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
+                    checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+                } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
+                    checkThenArm(null, 'bait', 'Beanster Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+                } else {
+                    checkThenArm(null, 'bait', 'Gouda Cheese');
+                    checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+                }
             }
 
             if (isCastleBossEncounter) {
