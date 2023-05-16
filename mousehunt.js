@@ -2471,7 +2471,7 @@ function bountifulBeanstalk() {
     // Use CC when encountering giant or during giant chase with 8x multipler
     if (toggleFuelOn && !fuelOn) {
         fireEvent(fuelButton, 'click');
-    } else if (!toggleFuelOn && fuelOn) {
+    } else if (!toggleFuelOn && fuelOn && !isBallroomFloor) {
         fireEvent(fuelButton, 'click');
     }
 
