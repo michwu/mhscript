@@ -2456,7 +2456,7 @@ function bountifulBeanstalk() {
     console.log(objUser);
 
     var isCastleBossEncounter = objUser.castle.is_boss_chase && objUser.castle.is_boss_encounter;
-    //var isBeanstalkBossEncounter = objUser.beanstalk.is_boss_encounter;
+    var isBeanstalkBossEncounter = !objUser.in_castle && objUser.beanstalk.is_boss_encounter;
 
     var isCastle = objUser.in_castle;
     var isDungeonFloor = isCastle && objUser.castle.current_floor.type == "dungeon_floor";
@@ -2466,7 +2466,7 @@ function bountifulBeanstalk() {
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
-    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier >= 8 && objUser.castle.is_boss_chase);
+    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier >= 8 && objUser.castle.is_boss_chase) || isBeanstalkBossEncounter;
 
     // Use CC when encountering giant or during giant chase with 8x multipler
     if (toggleFuelOn && !fuelOn) {
@@ -2485,10 +2485,7 @@ function bountifulBeanstalk() {
             nextRoomLootMultiplier *= 2;
         }
         if (lootMultiplier >= 8) {
-            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && objUser.castle.is_boss_chase) {
-                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
-                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
-            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
+            if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
                 checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
                 checkThenArm(null, 'trinket', 'Rift Spooky Charm');
             } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
@@ -2588,9 +2585,9 @@ function bountifulBeanstalk() {
             if ((lootMultiplier > nextRoomLootMultiplier) || objUser.castle.is_boss_chase) {
                 checkThenArm(null, 'bait', 'Beanster Cheese');
             } else if (lootMultiplier == nextRoomLootMultiplier) {
-                if ((objUser.castle.hunts_remaining * 8) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
+                if ((objUser.castle.hunts_remaining * 6) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
                     checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
-                } else if ((objUser.castle.hunts_remaining * 4) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
+                } else if ((objUser.castle.hunts_remaining * 3) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
                     checkThenArm(null, 'bait', 'Beanster Cheese');
                 } else {
                     checkThenArm(null, 'bait', 'Gouda Cheese');
