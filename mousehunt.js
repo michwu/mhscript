@@ -2576,9 +2576,15 @@ function bountifulBeanstalk() {
                 if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
                     checkThenArm(null, 'bait', 'Royal Beanster Cheese');
                     checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+                    if (!fuelOn) {
+                        fireEvent(fuelButton, 'click');
+                    }
                 } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
                     checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
                     checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+                    if (fuelOn && !objUser.castle.is_boss_chase) {
+                        fireEvent(fuelButton, 'click');
+                    }
                 } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
                     checkThenArm(null, 'bait', 'Beanster Cheese');
                     checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
