@@ -2597,21 +2597,6 @@ function bountifulBeanstalk() {
             if (isCastleBossEncounter) {
                 checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
             }
-        } else if (lootMultiplier == 2) {
-            if ((lootMultiplier > nextRoomLootMultiplier) || objUser.castle.is_boss_chase) {
-                checkThenArm(null, 'bait', 'Beanster Cheese');
-            } else if (lootMultiplier == nextRoomLootMultiplier) {
-                if ((objUser.castle.hunts_remaining * 6) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
-                    checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
-                } else if ((objUser.castle.hunts_remaining * 3) > (objUser.castle.max_noise_level - objUser.castle.noise_level)) {
-                    checkThenArm(null, 'bait', 'Beanster Cheese');
-                } else {
-                    checkThenArm(null, 'bait', 'Gouda Cheese');
-                }
-            } else {
-                checkThenArm(null, 'bait', 'Gouda Cheese');
-            }
-            checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
         } else {
             checkThenArm(null, 'bait', 'Gouda Cheese');
             checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
