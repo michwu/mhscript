@@ -2461,6 +2461,7 @@ function bountifulBeanstalk() {
     var isCastle = objUser.in_castle;
     var isDungeonFloor = isCastle && objUser.castle.current_floor.type == "dungeon_floor";
     var isBallroomFloor = isCastle && objUser.castle.current_floor.type == "ballroom_floor";
+    var isGreatHallFloor = isCastle && objUser.castle.current_floor.type == "great_hall_floor";
     var lootMultiplier = objUser.castle.current_room.loot_multiplier;
     var nextRoomLootMultiplier = objUser.castle.next_room.loot_multiplier;
 
@@ -2471,7 +2472,7 @@ function bountifulBeanstalk() {
     // Use CC when encountering giant or during giant chase with 8x multipler
     if (toggleFuelOn && !fuelOn) {
         fireEvent(fuelButton, 'click');
-    } else if (!toggleFuelOn && fuelOn && !isBallroomFloor) {
+    } else if (!toggleFuelOn && fuelOn && !isBallroomFloor && !isGreatHallFloor) {
         fireEvent(fuelButton, 'click');
     }
 
@@ -2602,6 +2603,28 @@ function bountifulBeanstalk() {
             checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
             if (isCastleBossEncounter) {
                 checkThenArm(null, 'bait', 'Empowered Brie');
+            }
+        }
+    }
+
+    // Great hall floor
+    if (isGreatHallFloor) {
+        if (lootMultiplier >= 8) {
+            if (!fuelOn) {
+                fireEvent(fuelButton, 'click');
+            }
+            checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+            checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
+        } else {
+            checkThenArm(null, 'bait', 'Gouda Cheese');
+            checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
+            if (objUser.castle.noise_level >= 50) {
+                var harpButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__playHarpDialogButton')[0];
+                fireEvent(harpButton, 'click');
+                var softMaxButton = document.getElementsByClassName('bountifulBeanstalkPlayHarpDialogView__maxHarpStringsButton')[0];
+                fireEvent(softMaxButton, 'click');
+                var playButton = document.getElementsByClassName('bountifulBeanstalkPlayHarpDialogView__playButton')[0];
+                fireEvent(playButton, 'click');
             }
         }
     }
