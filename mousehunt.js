@@ -2479,12 +2479,12 @@ function bountifulBeanstalk() {
     // Dungeon Floor
     if (isDungeonFloor) {
         // Upweight importance of mystery rooms
-        if (objUser.castle.current_room.type.slice(0,2) == "my") {
-            lootMultiplier *= 2;
-        }
-        if (objUser.castle.next_room.type.slice(0,2) == "my") {
-            nextRoomLootMultiplier *= 2;
-        }
+//         if (objUser.castle.current_room.type.slice(0,2) == "my") {
+//             lootMultiplier *= 2;
+//         }
+//         if (objUser.castle.next_room.type.slice(0,2) == "my") {
+//             nextRoomLootMultiplier *= 2;
+//         }
         if (lootMultiplier >= 8) {
             if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
                 checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
@@ -2545,12 +2545,12 @@ function bountifulBeanstalk() {
     // Ballroom Floor
     if (isBallroomFloor) {
         // Upweight importance of mystery rooms
-        if (objUser.castle.current_room.type.slice(0,2) == "my") {
-            lootMultiplier *= 2;
-        }
-        if (objUser.castle.next_room.type.slice(0,2) == "my") {
-            nextRoomLootMultiplier *= 2;
-        }
+//         if (objUser.castle.current_room.type.slice(0,2) == "my") {
+//             lootMultiplier *= 2;
+//         }
+//         if (objUser.castle.next_room.type.slice(0,2) == "my") {
+//             nextRoomLootMultiplier *= 2;
+//         }
         if (lootMultiplier >= 8) {
             if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && !isCastleBossEncounter) {
                 checkThenArm(null, 'bait', 'Royal Beanster Cheese');
@@ -2618,7 +2618,7 @@ function bountifulBeanstalk() {
         } else {
             checkThenArm(null, 'bait', 'Gouda Cheese');
             checkThenArm(null, 'trinket', 'Rift Super Vacuum Charm');
-            if (objUser.castle.noise_level >= 50) {
+            if (objUser.castle.noise_level >= 30) {
                 var harpButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__playHarpDialogButton')[0];
                 fireEvent(harpButton, 'click');
                 var softMaxButton = document.getElementsByClassName('bountifulBeanstalkPlayHarpDialogView__maxHarpStringsButton')[0];
