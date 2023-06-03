@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2467,7 +2467,7 @@ function bountifulBeanstalk() {
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
-    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier >= 8 && objUser.castle.is_boss_chase) || isBeanstalkBossEncounter;
+    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier >= 8) || isBeanstalkBossEncounter;
 
     // Use CC when encountering giant or during giant chase with 8x multipler
     if (toggleFuelOn && !fuelOn) {
@@ -2486,7 +2486,10 @@ function bountifulBeanstalk() {
 //             nextRoomLootMultiplier *= 2;
 //         }
         if (lootMultiplier >= 8) {
-            if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
+            if (objUser.items.royal_beanster_cheese.quantity_unformatted > 1 && !isCastleBossEncounter) {
+                checkThenArm(null, 'bait', 'Royal Beanster Cheese');
+                checkThenArm(null, 'trinket', 'Rift Spooky Charm');
+            } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
                 checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
                 checkThenArm(null, 'trinket', 'Rift Spooky Charm');
             } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
