@@ -2464,6 +2464,7 @@ function bountifulBeanstalk() {
     var isGreatHallFloor = isCastle && objUser.castle.current_floor.type == "great_hall_floor";
     var lootMultiplier = objUser.castle.current_room.loot_multiplier;
     var nextRoomLootMultiplier = objUser.castle.next_room.loot_multiplier;
+    var roomType = objUser.castle.current_room.type.slice(0,2);
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
@@ -2508,7 +2509,7 @@ function bountifulBeanstalk() {
                 checkThenArm(null, 'bait', 'Gouda Cheese');
                 checkThenArm(null, 'trinket', 'Rift Charm');
             } else {
-                if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level || objUser.castle.is_boss_chase)) {
+                if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1 && (objUser.castle.noise_level < objUser.castle.max_noise_level)) {
                     checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
                     checkThenArm(null, 'trinket', 'Rift Spooky Charm');
                 } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
@@ -2583,15 +2584,12 @@ function bountifulBeanstalk() {
                     if (!fuelOn) {
                         fireEvent(fuelButton, 'click');
                     }
-                } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted > 1) {
-                    checkThenArm(null, 'bait', 'Lavish Beanster Cheese');
-                    checkThenArm(null, 'trinket', 'Rift Spooky Charm');
-                    if (fuelOn && !(objUser.castle.noise_level < objUser.castle.max_noise_level)) {
-                        fireEvent(fuelButton, 'click');
-                    }
                 } else if (objUser.items.beanster_cheese.quantity_unformatted > 1) {
                     checkThenArm(null, 'bait', 'Beanster Cheese');
                     checkThenArm(null, 'trinket', 'Rift Charm');
+                    if (fuelOn && !(objUser.castle.noise_level < objUser.castle.max_noise_level)) {
+                        fireEvent(fuelButton, 'click');
+                    }
                 } else {
                     checkThenArm(null, 'bait', 'Gouda Cheese');
                     checkThenArm(null, 'trinket', 'Rift Charm');
