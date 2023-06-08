@@ -2610,7 +2610,7 @@ function bountifulBeanstalk() {
 
     // Great hall floor
     if (isGreatHallFloor) {
-        if (lootMultiplier >= 8) {
+        if (lootMultiplier >= 4) {
             if (!fuelOn) {
                 fireEvent(fuelButton, 'click');
             }
