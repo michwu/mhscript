@@ -2632,6 +2632,7 @@ function bountifulBeanstalk() {
 
     if (!isCastle) {
         checkThenArm(null, 'trinket', 'Rift Charm');
+        checkThenArm(null, 'base', 'Prestige Base');
     }
 }
 
