@@ -2468,7 +2468,7 @@ function bountifulBeanstalk() {
 
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__fuelToggleButton')[0];
-    var toggleFuelOn = isCastleBossEncounter || (lootMultiplier >= 8 && isCastle) || isBeanstalkBossEncounter;
+    var toggleFuelOn = (isGreatHallFloor && lootMultiplier >= 4) || (lootMultiplier >= 8 && isCastle && roomType == "ha");
 
     // Use CC when encountering giant or during giant chase with 8x multipler
     if (toggleFuelOn && !fuelOn) {
