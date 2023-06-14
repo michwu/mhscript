@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2615,7 +2615,8 @@ function bountifulBeanstalk() {
                 fireEvent(fuelButton, 'click');
             }
             checkThenArm(null, 'bait', 'Royal Beanster Cheese');
-            checkThenArm(null, 'trinket', 'Rift Ultimate Lucky Power Charm');
+            checkThenArm(null, 'trinket', 'Ultimate Lucky Power Charm');
+            checkThenArm(null, 'base', 'Signature Series Denture Base');
         } else {
             checkThenArm(null, 'bait', 'Gouda Cheese');
             checkThenArm(null, 'trinket', 'Rift Charm');
