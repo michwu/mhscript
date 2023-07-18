@@ -2463,6 +2463,7 @@ function bountifulBeanstalk() {
     var isBallroomFloor = isCastle && objUser.castle.current_floor.type == "ballroom_floor";
     var isGreatHallFloor = isCastle && objUser.castle.current_floor.type == "great_hall_floor";
     var lootMultiplier = objUser.castle.current_room.loot_multiplier;
+    var beanstalkMultiplier = objUser.beanstalk.current_zone.loot_multiplier;
     var nextRoomLootMultiplier = objUser.castle.next_room.loot_multiplier;
     var roomType = objUser.castle.current_room.type.slice(0,2);
 
@@ -2475,6 +2476,26 @@ function bountifulBeanstalk() {
         fireEvent(fuelButton, 'click');
     } else if (!toggleFuelOn && fuelOn && !isBallroomFloor && !isGreatHallFloor) {
         fireEvent(fuelButton, 'click');
+    }
+
+    // Auto-enter floors
+    var plantButton = document.getElementsByClassName('bountifulBeanstalkClimbView__plantVineDialogButton')[0];
+
+    if (!isCastle) {
+       if (beanstalkMultiplier <= 4) {
+          fireEvent(plantButton, 'click');
+           var shortVineButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[0];
+           var mediumVineButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[1];
+           var imReadyButton = document.getElementsByClassName('bountifulBeanstalkPlantVineDialogView__confirmDialogPlantButton')[0];
+           var plantButton2 = document.getElementsByClassName('bountifulBeanstalkPlantVineDialogView__plantVineButton')[0];
+          if (objUser.items.lavish_beanster_cheese.quantity_unformatted < 50) {
+             fireEvent(shortVineButton, 'click');
+          } else {
+             fireEvent(mediumVineButton, 'click');
+          }
+          fireEvent(plantButton2, 'click');
+          fireEvent(imReadyButton, 'click');
+       }
     }
 
     // Dungeon Floor
