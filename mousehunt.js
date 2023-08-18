@@ -2639,7 +2639,6 @@ function bountifulBeanstalk() {
             checkThenArm(null, 'trinket', 'Ultimate Lucky Power Charm');
             checkThenArm(null, 'base', 'Signature Series Denture Base');
         } else {
-            checkThenArm(null, 'bait', 'Gouda Cheese');
             checkThenArm(null, 'trinket', 'Rift Charm');
             if (objUser.castle.noise_level >= 30) {
                 var harpButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__playHarpDialogButton')[0];
