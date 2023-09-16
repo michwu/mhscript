@@ -49,7 +49,7 @@ var enableTrapCheck = true;
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2300,7 +2300,7 @@ function floatingIslands() {
        //checkThenArm(null, 'trinket', 'Eggstra Charm');
     } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
-       checkThenArm(null, 'weapon', 'Charming PrinceBot');
+       checkThenArm(null, 'weapon', 'Legendary KingBot');
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP unless Jade or Glore.
@@ -2312,7 +2312,7 @@ function floatingIslands() {
 
     // Use Best Trap, Charm, and Cheese for SP Boss
     if (isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Charming PrinceBot');
+        checkThenArm(null, 'weapon', 'Legendary KingBot');
         checkThenArm(null, 'bait', 'Empowered Brie');
         checkThenArm(null, 'trinket', 'Rift Ultimate Power Charm');
         //checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
@@ -2639,6 +2639,7 @@ function bountifulBeanstalk() {
             checkThenArm(null, 'trinket', 'Ultimate Lucky Power Charm');
             checkThenArm(null, 'base', 'Signature Series Denture Base');
         } else {
+            //checkThenArm(null, 'bait', 'Gouda Cheese');
             checkThenArm(null, 'trinket', 'Rift Charm');
             if (objUser.castle.noise_level >= 30) {
                 var harpButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__playHarpDialogButton')[0];
