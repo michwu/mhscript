@@ -1,3 +1,7 @@
+// // Trap check time different value (00 minutes - 45 minutes)
+// // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
+// // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
+var trapCheckTimeDiff = 15;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -45,11 +49,6 @@ var aggressiveMode = false;
 
 // // Enable trap check once an hour. (true/false)
 var enableTrapCheck = true;
-
-// // Trap check time different value (00 minutes - 45 minutes)
-// // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
-// // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 30;
 
 // // Extra delay time to trap check. (in seconds)
 // // Note: It only take effect if enableTrapCheck = true;
@@ -2486,9 +2485,24 @@ function bountifulBeanstalk() {
           fireEvent(plantButton, 'click');
            var shortVineButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[0];
            var mediumVineButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[1];
+           var longVineButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[2];
+           var keyButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[3];
+           var featherButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__dialogOptionTitle')[4];
            var imReadyButton = document.getElementsByClassName('bountifulBeanstalkPlantVineDialogView__confirmDialogPlantButton')[0];
            var plantButton2 = document.getElementsByClassName('bountifulBeanstalkPlantVineDialogView__plantVineButton')[0];
-          if (objUser.items.lavish_beanster_cheese.quantity_unformatted < 50) {
+
+           var royalBeanCheeseCount = objUser.items.royal_beanster_cheese.quantity_unformatted
+           var fertilizerCount = objUser.items.fabled_fertilizer_stat_item.quantity_unformatted
+           var ccCount = objUser.items.condensed_creativity_stat_item.quantity_unformatted
+           var keyCount = objUser.items.giant_golden_key_stat_item.quantity_unformatted
+           var featherCount = objUser.items.golden_goose_feather_stat_item.quantity_unformatted
+
+
+          if (royalBeanCheeseCount > 40 && fertilizerCount > 100 && ccCount > 40 && keyCount > 0 && featherCount > 0) {
+             fireEvent(longVineButton, 'click');
+             fireEvent(keyButton, 'click');
+             fireEvent(featherButton, 'click');
+          } else if (objUser.items.lavish_beanster_cheese.quantity_unformatted < 50) {
              fireEvent(shortVineButton, 'click');
           } else {
              fireEvent(mediumVineButton, 'click');
