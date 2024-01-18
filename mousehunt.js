@@ -1,7 +1,7 @@
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -2239,7 +2239,7 @@ function floatingIslands() {
 
     // Arm specific trap for LAI warden.
     if (!isHighTierIsland && !isVaultIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-        checkThenArm(null, 'weapon', 'Charming PrinceBot');
+        checkThenArm(null, 'weapon', 'Legendary KingBot');
         checkThenArm(null, 'bait', 'Empowered Brie');
     }
 
