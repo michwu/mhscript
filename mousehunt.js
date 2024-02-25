@@ -1,7 +1,7 @@
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 30;
+var trapCheckTimeDiff = 15;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -2283,7 +2283,7 @@ function floatingIslands() {
 
     // Arm Eggstra Charge Charm for HAI boss
 //     if (isHighTierIsland && !hasDefeatedEnemy && isEnemyEncounter) {
-//       checkThenArm(null, 'trinket', 'Eggstra Charge Charm');
+//       checkThenArm(null, 'trinket', 'Eggstra Charge Charm');s
 //     } else if (isHighTierIsland) {
 //       checkThenArm(null, 'trinket', savedTrinket);
 //     }
@@ -2297,9 +2297,11 @@ function floatingIslands() {
     if (isVaultIsland && islandProgress == 0) {
        checkThenArm(null, 'bait', 'Extra Rich Cloud Cheesecake');
        //checkThenArm(null, 'trinket', 'Eggstra Charm');
-    } else if (isVaultIsland && islandProgress == 20 && isSpPirate) {
-       checkThenArm(null, 'bait', 'Sky Pirate Swiss');
-       checkThenArm(null, 'weapon', 'Legendary KingBot');
+    } else if (isVaultIsland && islandProgress >= 20 && isSpPirate) {
+        console.log("TEST")
+        checkThenArm(null, 'weapon', 'Legendary KingBot');
+        checkThenArm(null, 'bait', 'Sky Pirate Swiss');
+
     }
 
     // Automatically enable fuel for first 3 sections of SP. Disable fuel at last section of SP unless Jade or Glore.
@@ -2643,6 +2645,11 @@ function bountifulBeanstalk() {
         }
     }
 
+    // Lunar New Year
+//     var isGreatHallx8 = false;
+//     var lanternButton = document.getElementsByClassName('mousehuntItem-boundingBox ')[1];
+//     var lanternButtonx3 = document.getElementsByClassName('mousehuntItem-boundingBox ')[3];
+
     // Great hall floor
     if (isGreatHallFloor) {
         if (lootMultiplier >= 8) {
@@ -2650,10 +2657,18 @@ function bountifulBeanstalk() {
                 fireEvent(fuelButton, 'click');
             }
             checkThenArm(null, 'bait', 'Royal Beanster Cheese');
-            checkThenArm(null, 'trinket', 'Ultimate Lucky Power Charm');
+            checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
             checkThenArm(null, 'base', 'Signature Series Denture Base');
+
+//             isGreatHallx8 = true;
+            // Lunar New Year
+//             if (lunar.lantern_status != "hasLantern triple" && objUser.castle.is_boss_encounter) {
+//                 fireEvent(lanternButtonx3, 'click');
+//             } else if (lunar.lantern_status != "hasLantern double" && !objUser.castle.is_boss_encounter) {
+//                 fireEvent(lanternButton, 'click');
+//             }
         } else {
-            //checkThenArm(null, 'bait', 'Gouda Cheese');
+            checkThenArm(null, 'bait', 'Leaping Lavish Beanster Cheese');
             checkThenArm(null, 'trinket', 'Rift Charm');
             if (objUser.castle.noise_level >= 30) {
                 var harpButton = document.getElementsByClassName('headsUpDisplayBountifulBeanstalkView__playHarpDialogButton')[0];
@@ -2670,6 +2685,13 @@ function bountifulBeanstalk() {
         checkThenArm(null, 'trinket', 'Rift Charm');
         checkThenArm(null, 'base', 'Prestige Base');
     }
+
+    // Lunar New Year
+//     if (!isGreatHallx8 && lunar.lantern_status == "hasLantern triple") {
+//         fireEvent(lanternButtonx3, 'click');
+//     } else if (!isGreatHallx8 && lunar.lantern_status == "hasLantern double") {
+//         fireEvent(lanternButton, 'click');
+//     }
 }
 
 function folkloreForest() {
@@ -6135,30 +6157,32 @@ function armTrapNewUI(sort, trap, name) {
 function clickTrapSelector(strSelect, bForceClick) { //strSelect = weapon/base/charm/trinket/bait
     if (isNullOrUndefined(bForceClick))
         bForceClick = false;
-    if (isNewUI) {
-        var armedItem = document.getElementsByClassName('campPage-trap-armedItem ' + strSelect)[0];
-        var arrTemp = armedItem.getAttribute('class').split(" ");
-        if (bForceClick !== true && arrTemp[arrTemp.length - 1] == 'active') { // trap selector opened
-            arming = true;
-            return (console.plog('Trap selector', strSelect, 'opened'));
-        }
-        fireEvent(armedItem, 'click');
-    } else {
+//     if (isNewUI) {
+//         console.log("STRSELECT " + strSelect)
+//         var armedItem = document.getElementsByClassName('campPage-trap-armedItem ' + strSelect)[0];
+//         console.log(armedItem)
+//         var arrTemp = armedItem.getAttribute('class').split(" ");
+//         if (bForceClick !== true && arrTemp[arrTemp.length - 1] == 'active') { // trap selector opened
+//             arming = true;
+//             return (console.plog('Trap selector', strSelect, 'opened'));
+//         }
+//         fireEvent(armedItem, 'click');
+//     } else {
         if (bForceClick !== true && document.getElementsByClassName("showComponents " + strSelect).length > 0) { // trap selector opened
             arming = true;
             return (console.plog('Trap selector', strSelect, 'opened'));
         }
         if (strSelect == "base")
-            fireEvent(document.getElementsByClassName('trapControlThumb')[0], 'click');
+            fireEvent(document.getElementsByClassName('trapSelectorView__armedItem')[1], 'click');
         else if (strSelect == "weapon")
-            fireEvent(document.getElementsByClassName('trapControlThumb')[1], 'click');
+            fireEvent(document.getElementsByClassName('trapSelectorView__armedItem')[2], 'click');
         else if (strSelect == "charm" || strSelect == "trinket")
-            fireEvent(document.getElementsByClassName('trapControlThumb')[2], 'click');
+            fireEvent(document.getElementsByClassName('trapSelectorView__armedItem')[4], 'click');
         else if (strSelect == "bait")
-            fireEvent(document.getElementsByClassName('trapControlThumb')[3], 'click');
+            fireEvent(document.getElementsByClassName('trapSelectorView__armedItem')[0], 'click');
         else
             return (console.plog("Invalid trapSelector"));
-    }
+    //}
     arming = true;
     console.plog("Trap selector", strSelect, "clicked");
 }
