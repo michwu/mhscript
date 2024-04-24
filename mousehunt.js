@@ -1334,6 +1334,9 @@ function eventLocationCheck(caller) {
         case 'Bountiful Beanstalk':
             bountifulBeanstalk();
             break;
+        case 'School of Sorcery':
+            schoolOfSorcery();
+            break;
         default:
             break;
     }
@@ -2692,6 +2695,48 @@ function bountifulBeanstalk() {
 //     } else if (!isGreatHallx8 && lunar.lantern_status == "hasLantern double") {
 //         fireEvent(lanternButton, 'click');
 //     }
+}
+
+function schoolOfSorcery() {
+    var currentLocation = getPageVariable("user.environment_name");
+    if (GetCurrentLocation().indexOf("School of Sorcery") < 0)
+        return;
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestSchoolOfSorcery)'));
+    console.log(objUser);
+
+    var inCourse = objUser.in_course;
+    var inExam = objUser.in_exam;
+
+    var arcaneButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[0];
+    var shadowButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[0];
+
+    var numArcaneStone = objUser.items.arcane_sunstone_stat_item.quantity_unformatted;
+    var numShadowStone = objUser.items.shadow_moonstone_stat_item.quantity_unformatted;
+
+    // Auto enter shadow/arcane zone
+    if (!inCourse && !inExam) {
+       if (numArcaneStone < numShadowStone) {
+           checkThenArm(null, 'weapon', 'Chrome Circlet of Pursuing');
+           fireEvent(arcaneButton, 'click');
+       } else {
+           checkThenArm(null, 'weapon', 'Infinite Dark Magic Mirrors');
+           fireEvent(shadowButton, 'click');
+       }
+       var enrollButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__enrollCourseDialogButton')[1];
+       fireEvent(enrollButton, 'click');
+       var confirmButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__confirmDialogEnrollButton')[0];
+       fireEvent(confirmButton, 'click');
+    }
+
+    // Turn on CC for mini-boss mouse
+    var isBossEncounter = objUser.current_course.is_boss_encounter;
+    var fuelOn = objUser.is_fuel_enabled;
+    var fuelButton = document.getElementsByClassName('headsUpDisplaySchoolOfSorceryView__fuelToggleButton')[0];
+    if (isBossEncounter && !fuelOn) {
+        fireEvent(fuelButton, 'click');
+    } else if (!isBossEncounter && fuelOn) {
+        fireEvent(fuelButton, 'click');
+    }
 }
 
 function folkloreForest() {
@@ -7641,6 +7686,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="Iceberg">Iceberg</option>';
                 preferenceHTMLStr += '<option value="Labyrinth">Labyrinth</option>';
                 preferenceHTMLStr += '<option value="Queso Geyser">Queso Geyser</option>';
+                preferenceHTMLStr += '<option value="School of Sorcery">School of Sorcery</option>';
                 preferenceHTMLStr += '<option value="SG">Seasonal Garden</option>';
                 preferenceHTMLStr += '<option value="Sunken City">Sunken City</option>';
                 preferenceHTMLStr += '<option value="Sunken City Custom">Sunken City Custom</option>';
