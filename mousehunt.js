@@ -2708,7 +2708,7 @@ function schoolOfSorcery() {
     var inExam = objUser.in_exam;
 
     var arcaneButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[0];
-    var shadowButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[0];
+    var shadowButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[1];
 
     var numArcaneStone = objUser.items.arcane_sunstone_stat_item.quantity_unformatted;
     var numShadowStone = objUser.items.shadow_moonstone_stat_item.quantity_unformatted;
