@@ -2737,7 +2737,7 @@ function schoolOfSorcery() {
 
     // Arm AA cheese vs Gouda
     if (inCourse && objUser.current_course.hunts_remaining > 59) {
-        if (objUser.items,apprentice_ambert_cheese.quantity_unformatted > 60) {
+        if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
             checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
         } else {
             checkThenArm(null, 'bait', 'Gouda Cheese');
