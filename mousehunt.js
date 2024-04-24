@@ -2716,16 +2716,32 @@ function schoolOfSorcery() {
     // Auto enter shadow/arcane zone
     if (!inCourse && !inExam) {
        if (numArcaneStone < numShadowStone) {
-           checkThenArm(null, 'weapon', 'Chrome Circlet of Pursuing');
            fireEvent(arcaneButton, 'click');
        } else {
-           checkThenArm(null, 'weapon', 'Infinite Dark Magic Mirrors');
            fireEvent(shadowButton, 'click');
        }
        var enrollButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__enrollCourseDialogButton')[1];
        fireEvent(enrollButton, 'click');
        var confirmButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__confirmDialogEnrollButton')[0];
        fireEvent(confirmButton, 'click');
+    }
+
+    // Arm appropriate trap
+    if (inCourse) {
+        if (objUser.current_course.power_type == "arcane") {
+            checkThenArm(null, 'weapon', 'Chrome Circlet of Pursuing');
+        } else if (objUser.current_course.power_type == "shadow") {
+            checkThenArm(null, 'weapon', 'Infinite Dark Magic Mirrors');
+        }
+    }
+
+    // Arm AA cheese vs Gouda
+    if (inCourse && objUser.current_course.hunts_remaining > 59) {
+        if (objUser.items,apprentice_ambert_cheese.quantity_unformatted > 60) {
+            checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
+        } else {
+            checkThenArm(null, 'bait', 'Gouda Cheese');
+        }
     }
 
     // Turn on CC for mini-boss mouse
