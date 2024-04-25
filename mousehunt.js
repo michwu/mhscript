@@ -1,7 +1,7 @@
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -2715,6 +2715,11 @@ function schoolOfSorcery() {
 
     // Auto enter shadow/arcane zone
     if (!inCourse && !inExam) {
+        if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
+            checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
+        } else {
+            checkThenArm(null, 'bait', 'Gouda Cheese');
+        }
        if (numArcaneStone < numShadowStone) {
            fireEvent(arcaneButton, 'click');
        } else {
@@ -2735,14 +2740,14 @@ function schoolOfSorcery() {
         }
     }
 
-    // Arm AA cheese vs Gouda
-    if (inCourse && objUser.current_course.hunts_remaining > 59) {
-        if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
-            checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
-        } else {
-            checkThenArm(null, 'bait', 'Gouda Cheese');
-        }
-    }
+//     // Arm AA cheese vs Gouda
+//     if (inCourse && objUser.current_course.hunts_remaining > 58) {
+//         if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
+//             checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
+//         } else {
+//             checkThenArm(null, 'bait', 'Gouda Cheese');
+//         }
+//     }
 
     // Turn on CC for mini-boss mouse
     var isBossEncounter = objUser.current_course.is_boss_encounter;
