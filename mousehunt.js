@@ -1,7 +1,7 @@
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 30;
+var trapCheckTimeDiff = 15;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -2713,13 +2713,23 @@ function schoolOfSorcery() {
     var numArcaneStone = objUser.items.arcane_sunstone_stat_item.quantity_unformatted;
     var numShadowStone = objUser.items.shadow_moonstone_stat_item.quantity_unformatted;
 
+    var ableToEnterFinalExam = numArcaneStone >= 300 && numShadowStone >= 300;
+    var usingMMCheese = false;
+
     // Auto enter shadow/arcane zone
-    if (!inCourse && !inExam) {
-        if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
-            checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
-        } else {
-            checkThenArm(null, 'bait', 'Gouda Cheese');
-        }
+    if (!inCourse && !inExam && !ableToEnterFinalExam) {
+       if (objUser.items.master_mimolette_cheese.quantity_unformatted > 60) {
+           checkThenArm(null, 'bait', 'Master Mimolette Cheese');
+           checkThenArm(null, 'trinket', 'Rift Super Power Charm');
+           usingMMCheese = true;
+
+       } else if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
+           checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
+           checkThenArm(null, 'trinket', 'Rift Charm');
+       } else {
+           checkThenArm(null, 'bait', 'Gouda Cheese');
+           checkThenArm(null, 'trinket', 'Rift Charm');
+       }
        if (numArcaneStone < numShadowStone) {
            fireEvent(arcaneButton, 'click');
        } else {
@@ -2755,7 +2765,12 @@ function schoolOfSorcery() {
     var fuelButton = document.getElementsByClassName('headsUpDisplaySchoolOfSorceryView__fuelToggleButton')[0];
     if (isBossEncounter && !fuelOn) {
         fireEvent(fuelButton, 'click');
-    } else if (!isBossEncounter && fuelOn) {
+    } else if (!isBossEncounter && fuelOn && !usingMMCheese) {
+        fireEvent(fuelButton, 'click');
+    }
+
+    // Turn on CC when using MM cheese
+    if (usingMMCheese && !fuelOn) {
         fireEvent(fuelButton, 'click');
     }
 }
