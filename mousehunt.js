@@ -2713,7 +2713,7 @@ function schoolOfSorcery() {
     var numArcaneStone = objUser.items.arcane_sunstone_stat_item.quantity_unformatted;
     var numShadowStone = objUser.items.shadow_moonstone_stat_item.quantity_unformatted;
 
-    var ableToEnterFinalExam = numArcaneStone >= 300 && numShadowStone >= 300;
+    var ableToEnterFinalExam = numArcaneStone >= 300 && numShadowStone >= 300 && objUser.items.master_mimolette_cheese.quantity_unformatted > 120;
     var usingMMCheese = objUser.items.master_mimolette_cheese.status == 'active';
 
     // Auto enter shadow/arcane zone
@@ -2758,18 +2758,13 @@ function schoolOfSorcery() {
 //         }
 //     }
 
-    // Turn on CC for mini-boss mouse
-    var isBossEncounter = objUser.current_course.is_boss_encounter;
+    // Turn on CC when using MM cheese
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplaySchoolOfSorceryView__fuelToggleButton')[0];
-    if (isBossEncounter && !fuelOn) {
-        fireEvent(fuelButton, 'click');
-    } else if (!isBossEncounter && fuelOn && !usingMMCheese) {
-        fireEvent(fuelButton, 'click');
-    }
 
-    // Turn on CC when using MM cheese
     if (usingMMCheese && !fuelOn) {
+        fireEvent(fuelButton, 'click');
+    } else if (!usingMMCheese && fuelOn) {
         fireEvent(fuelButton, 'click');
     }
 }
