@@ -2713,12 +2713,13 @@ function schoolOfSorcery() {
     var numArcaneStone = objUser.items.arcane_sunstone_stat_item.quantity_unformatted;
     var numShadowStone = objUser.items.shadow_moonstone_stat_item.quantity_unformatted;
 
-    var ableToEnterFinalExam = numArcaneStone >= 300 && numShadowStone >= 300 && objUser.items.master_mimolette_cheese.quantity_unformatted > 120;
+    var enoughStones = numArcaneStone >= 300 && numShadowStone >= 300;
+    var ableToEnterFinalExam = enoughStones && objUser.items.master_mimolette_cheese.quantity_unformatted > 120;
     var usingMMCheese = objUser.items.master_mimolette_cheese.status == 'active';
 
     // Auto enter shadow/arcane zone
     if (!inCourse && !inExam && !ableToEnterFinalExam) {
-       if (objUser.items.master_mimolette_cheese.quantity_unformatted > 60) {
+       if (objUser.items.master_mimolette_cheese.quantity_unformatted > 60 && !enoughStones) {
            checkThenArm(null, 'bait', 'Master Mimolette Cheese');
            checkThenArm(null, 'trinket', 'Rift Super Power Charm');
 
