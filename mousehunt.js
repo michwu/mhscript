@@ -2709,13 +2709,13 @@ function schoolOfSorcery() {
 
     var arcaneButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[0];
     var shadowButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[1];
+    var finalExamButton = document.getElementsByClassName('schoolOfSorceryHallwayView__startCourse')[2];
 
     var numArcaneStone = objUser.items.arcane_sunstone_stat_item.quantity_unformatted;
     var numShadowStone = objUser.items.shadow_moonstone_stat_item.quantity_unformatted;
 
     var enoughStones = numArcaneStone >= 300 && numShadowStone >= 300;
     var ableToEnterFinalExam = enoughStones && objUser.items.master_mimolette_cheese.quantity_unformatted > 120;
-    var usingMMCheese = objUser.items.master_mimolette_cheese.status == 'active';
 
     // Auto enter shadow/arcane zone
     if (!inCourse && !inExam && !ableToEnterFinalExam) {
@@ -2741,28 +2741,32 @@ function schoolOfSorcery() {
        fireEvent(confirmButton, 'click');
     }
 
+    // Auto enter final exam
+    if (!inCourse && !inExam && ableToEnterFinalExam) {
+        fireEvent(finalExamButton, 'click');
+        var enrollButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__enrollCourseDialogButton')[1];
+        fireEvent(enrollButton, 'click');
+        var confirmButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__confirmDialogEnrollButton')[0];
+        fireEvent(confirmButton, 'click');
+        checkThenArm(null, 'bait', 'Master Mimolette Cheese');
+        checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+        checkThenArm(null, 'base', 'Signature Series Denture Base');
+    }
+
     // Arm appropriate trap
     if (inCourse) {
         if (objUser.current_course.power_type == "arcane") {
             checkThenArm(null, 'weapon', 'Chrome Circlet of Pursuing');
         } else if (objUser.current_course.power_type == "shadow") {
+            console.log("shadow");
             checkThenArm(null, 'weapon', 'Infinite Dark Magic Mirrors');
         }
     }
 
-//     // Arm AA cheese vs Gouda
-//     if (inCourse && objUser.current_course.hunts_remaining > 58) {
-//         if (objUser.items.apprentice_ambert_cheese.quantity_unformatted > 60) {
-//             checkThenArm(null, 'bait', 'Apprentice Ambert Cheese');
-//         } else {
-//             checkThenArm(null, 'bait', 'Gouda Cheese');
-//         }
-//     }
-
     // Turn on CC when using MM cheese
     var fuelOn = objUser.is_fuel_enabled;
     var fuelButton = document.getElementsByClassName('headsUpDisplaySchoolOfSorceryView__fuelToggleButton')[0];
-
+    var usingMMCheese = objUser.items.master_mimolette_cheese.status == 'active';
     if (usingMMCheese && !fuelOn) {
         fireEvent(fuelButton, 'click');
     } else if (!usingMMCheese && fuelOn) {
