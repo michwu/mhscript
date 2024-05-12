@@ -2739,6 +2739,7 @@ function schoolOfSorcery() {
        fireEvent(enrollButton, 'click');
        var confirmButton = document.getElementsByClassName('schoolOfSorceryEnrollCourseDialogView__confirmDialogEnrollButton')[0];
        fireEvent(confirmButton, 'click');
+       checkThenArm(null, 'base', 'Prestige Base');
     }
 
     // Auto enter final exam
