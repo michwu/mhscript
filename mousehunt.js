@@ -1337,6 +1337,9 @@ function eventLocationCheck(caller) {
         case 'School of Sorcery':
             schoolOfSorcery();
             break;
+        case 'Draconic Depths':
+            draconicDepths();
+            break;
         default:
             break;
     }
@@ -2772,6 +2775,20 @@ function schoolOfSorcery() {
         fireEvent(fuelButton, 'click');
     } else if (!usingMMCheese && fuelOn) {
         fireEvent(fuelButton, 'click');
+    }
+}
+
+function draconicDepths() {
+    var currentLocation = getPageVariable("user.environment_name");
+    if (GetCurrentLocation().indexOf("Draconic Depths") < 0)
+        return;
+    var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestDraconicDepths)'));
+    console.log(objUser);
+    var inCavern = objUser.cavern.in_cavern;
+    if (inCavern) {
+        checkThenArm(null, 'trinket', 'Dragonbane Charm');
+    } else {
+        checkThenArm(null, 'trinket', 'Rift Charm');
     }
 }
 
@@ -7709,6 +7726,7 @@ function embedTimer(targetPage) {
                 preferenceHTMLStr += '<option value="Burroughs Rift Custom">Burroughs Rift Custom</option>';
                 preferenceHTMLStr += '<option value="Charge Egg 2016 Medium + High">Charge Egg 2016 Medium + High</option>';
                 preferenceHTMLStr += '<option value="Charge Egg 2016 High">Charge Egg 2016 High</option>';
+                preferenceHTMLStr += '<option value="Draconic Depths">Draconic Depths</option>';
                 preferenceHTMLStr += '<option value="FG/AR">FG => AR</option>';
                 preferenceHTMLStr += '<option value="Fiery Warpath">Fiery Warpath</option>';
                 preferenceHTMLStr += '<option value="Floating Islands">Floating Islands</option>';
