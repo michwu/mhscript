@@ -2938,7 +2938,8 @@ function folkloreForest() {
         var wordCount = objUser.current_book.word_count;
         var fuelButton = document.getElementsByClassName('folkloreForestRegionView-fuel-toggleButton')[0];
         var retreatButton = document.getElementsByClassName('tableOfContentsProgressView-cancelButton active')[0];
-        var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0]
+        var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0];
+        var bookType = objUser.progress.type;
 
         // claim
         if (objUser.can_claim) {
@@ -2949,44 +2950,65 @@ function folkloreForest() {
             }
         }
 
-        // start epic run if enough 2nd draft and not enough FD
-        if (parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[1].textContent) >= 25) {
-            // && parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[2].textContent) < 40) {
-            console.log("CHAP");
-            var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
-            if (objUser.can_start && startButton.length > 0) {
-                fireEvent(startButton[0], 'click')
-                var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
-                fireEvent(secondDerbyButton, 'click')
-                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
-                fireEvent(confirmButton, 'click');
-            }
+        // Start novel run
+        var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
+        if (objUser.can_start && startButton.length > 0) {
+            fireEvent(startButton[0], 'click')
+            var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
+            fireEvent(secondDerbyButton, 'click')
+            var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
+            fireEvent(confirmButton, 'click');
         }
 
-        var needFuel = (2000 - wordCount + 123) / huntsRemaining > 123.0;
-
-        if (bait == "second_draft_derby_cheese") {
-            if (wordCount >= 2000) {
-                fireEvent(retreatButton, 'click');
-                var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
-                fireEvent(confirmButton, 'click');
-            } else if (needFuel && !fuelOn) {
-                fireEvent(fuelButton, 'click');
-            } else if (!needFuel && fuelOn) {
-                fireEvent(fuelButton, 'click');
-            }
-            checkThenArm(null, 'trinket', 'Ancient Charm');
-            checkThenArm(null, 'base', 'Prestige Base');
-        } else if (bait == "final_draft_derby_cheese") {
-            if (!fuelOn) {
-                fireEvent(fuelButton, 'click');
-            }
-            checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
-            checkThenArm(null, 'base', 'Signature Series Denture Base');
-        } else {
-            disarmTrap('trinket');
-            checkThenArm(null, 'base', 'Prestige Base');
+        // Each novel run is 1 2DD + 2 FDD
+        if (wordCount >= 1000) {
+            fireEvent(retreatButton, 'click');
+            var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+            fireEvent(confirmButton, 'click');
+        } else if (wordCount > 120) {
+            checkThenArm(null, 'bait', 'Final Draft Derby Cheese');
         }
+
+
+
+//         // start epic run if enough 2nd draft and not enough FD
+//         if (parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[1].textContent) >= 25) {
+//             // && parseInt(document.getElementsByClassName('folkloreForestRegionView-bait-quantity quantity')[2].textContent) < 40) {
+//             console.log("CHAP");
+//             var startButton = document.getElementsByClassName('tableOfContentsView-startWritingButton active canStart')
+//             if (objUser.can_start && startButton.length > 0) {
+//                 fireEvent(startButton[0], 'click')
+//                 var secondDerbyButton = document.getElementsByClassName('tableOfContentsView-selectInitialBait second_draft_derby_cheese')[0]
+//                 fireEvent(secondDerbyButton, 'click')
+//                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents confirm')[0]
+//                 fireEvent(confirmButton, 'click');
+//             }
+//         }
+
+//         var needFuel = (2000 - wordCount + 123) / huntsRemaining > 123.0;
+
+//         if (bait == "second_draft_derby_cheese") {
+//             if (wordCount >= 2000) {
+//                 fireEvent(retreatButton, 'click');
+//                 var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+//                 fireEvent(confirmButton, 'click');
+//             } else if (needFuel && !fuelOn) {
+//                 fireEvent(fuelButton, 'click');
+//             } else if (!needFuel && fuelOn) {
+//                 fireEvent(fuelButton, 'click');
+//             }
+//             checkThenArm(null, 'trinket', 'Ancient Charm');
+//             checkThenArm(null, 'base', 'Prestige Base');
+//         } else if (bait == "final_draft_derby_cheese") {
+//             if (!fuelOn) {
+//                 fireEvent(fuelButton, 'click');
+//             }
+//             checkThenArm(null, 'trinket', 'Festive Ultimate Lucky Power Charm');
+//             checkThenArm(null, 'base', 'Signature Series Denture Base');
+//         } else {
+//             disarmTrap('trinket');
+//             checkThenArm(null, 'base', 'Prestige Base');
+//         }
     }
 }
 
