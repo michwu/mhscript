@@ -2941,13 +2941,21 @@ function folkloreForest() {
         var claimButton = document.getElementsByClassName('tableOfContentsProgressView-claimButton')[0];
         var bookType = objUser.progress.type;
 
-        // claim
+        // // Each novel run is 1 2DD + 2 FDD
         if (objUser.can_claim) {
             fireEvent(claimButton, 'click');
             var closeButton = document.getElementsByClassName('folkloreForestRegionView-dialog-continueButton jsDialogClose');
+            console.log(closeButton);
             if (closeButton.length >= 1) {
                 fireEvent(closeButton[0], 'click');
             }
+        } else if (wordCount >= 1000) {
+            fireEvent(retreatButton, 'click');
+            var contButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
+            console.log(contButton);
+            fireEvent(contButton, 'click');
+        } else if (wordCount > 120) {
+            checkThenArm(null, 'bait', 'Final Draft Derby Cheese');
         }
 
         // Start novel run
@@ -2960,14 +2968,7 @@ function folkloreForest() {
             fireEvent(confirmButton, 'click');
         }
 
-        // Each novel run is 1 2DD + 2 FDD
-        if (wordCount >= 1000) {
-            fireEvent(retreatButton, 'click');
-            var confirmButton = document.getElementsByClassName('folkloreForestRegionView-button table_of_contents')[1];
-            fireEvent(confirmButton, 'click');
-        } else if (wordCount > 120) {
-            checkThenArm(null, 'bait', 'Final Draft Derby Cheese');
-        }
+
 
 
 
