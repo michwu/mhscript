@@ -1,7 +1,7 @@
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 15;
+var trapCheckTimeDiff = 30;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -2785,10 +2785,17 @@ function draconicDepths() {
     var objUser = JSON.parse(getPageVariable('JSON.stringify(user.quests.QuestDraconicDepths)'));
     console.log(objUser);
     var inCavern = objUser.cavern.in_cavern;
+    var lootQuantity = objUser.duplicator_chest.num_total_items;
+    var fuelEnabled = objUser.is_fuel_enabled;
+    var fuelButton = document.getElementsByClassName('headsUpDisplayDraconicDepthsView__fuelToggleButton')[0];
     if (inCavern) {
         checkThenArm(null, 'trinket', 'Dragonbane Charm');
     } else {
         checkThenArm(null, 'trinket', 'Rift Charm');
+    }
+
+    if (inCavern && fuelEnabled && lootQuantity >= 750) {
+        fireEvent(fuelButton, 'click');
     }
 }
 
