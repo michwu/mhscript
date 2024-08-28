@@ -1,7 +1,7 @@
 // // Trap check time different value (00 minutes - 45 minutes)
 // // Note: Every player had different trap check time, set your trap check time here. It only take effect if enableTrapCheck = true;
 // // Example: If you have XX:00 trap check time then set 00. If you have XX:45 trap check time, then set 45.
-var trapCheckTimeDiff = 30;
+var trapCheckTimeDiff = 15;
 // ==UserScript==
 // @name        MouseHunt AutoBot UPDATED
 // @author      Nevocaine, Gawz, nobodyrandom, Ooi Keng Siang, CnN
@@ -2787,15 +2787,30 @@ function draconicDepths() {
     var inCavern = objUser.cavern.in_cavern;
     var lootQuantity = objUser.duplicator_chest.num_total_items;
     var fuelEnabled = objUser.is_fuel_enabled;
+    var canReinforce = objUser.cavern.reinforcement.can_reinforce;
+    var huntsRemaining = objUser.cavern.hunts_remaining;
+
     var fuelButton = document.getElementsByClassName('headsUpDisplayDraconicDepthsView__fuelToggleButton')[0];
+    var reinforceButton = document.getElementsByClassName('draconicDepthsCavernView__reinforceCavernButton draconicDepthsCavernView__reinforceCavernButton--')[0];
+
     if (inCavern) {
         checkThenArm(null, 'trinket', 'Dragonbane Charm');
     } else {
         checkThenArm(null, 'trinket', 'Rift Charm');
     }
 
+    // Turn off CC at 750 loot.
     if (inCavern && fuelEnabled && lootQuantity >= 750) {
         fireEvent(fuelButton, 'click');
+    }
+
+    // Keep reinforcing hunts.
+    if (huntsRemaining < 5 && canReinforce) {
+        fireEvent(reinforceButton, 'click');
+        var maxButton = document.getElementsByClassName('draconicDepthsReinforceCavernDialogView__maxButton')[0];
+        fireEvent(maxButton, 'click');
+        var reinforceConfirmButton = document.getElementsByClassName('draconicDepthsView__orangeButton draconicDepthsView__orangeButton--big draconicDepthsReinforceCavernDialogView__reinforceButton-- draconicDepthsReinforceCavernDialogView__reinforceButton')[0];
+        fireEvent(reinforceConfirmButton, 'click');
     }
 }
 
