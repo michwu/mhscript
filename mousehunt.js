@@ -2793,16 +2793,16 @@ function draconicDepths() {
     var fuelButton = document.getElementsByClassName('headsUpDisplayDraconicDepthsView__fuelToggleButton')[0];
     var reinforceButton = document.getElementsByClassName('draconicDepthsCavernView__reinforceCavernButton draconicDepthsCavernView__reinforceCavernButton--')[0];
 
-    if (inCavern) {
-        checkThenArm(null, 'trinket', 'Dragonbane Charm');
-    } else {
-        checkThenArm(null, 'trinket', 'Rift Charm');
-    }
+//     if (inCavern) {
+//         checkThenArm(null, 'trinket', 'Dragonbane Charm');
+//     } else {
+//         checkThenArm(null, 'trinket', 'Rift Charm');
+//     }
 
     // Turn off CC at 750 loot.
-    if (inCavern && fuelEnabled && lootQuantity >= 750) {
-        fireEvent(fuelButton, 'click');
-    }
+//     if (inCavern && fuelEnabled && lootQuantity >= 750) {
+//         fireEvent(fuelButton, 'click');
+//     }
 
     // Keep reinforcing hunts.
     if (huntsRemaining < 5 && canReinforce) {
@@ -2812,6 +2812,34 @@ function draconicDepths() {
         var reinforceConfirmButton = document.getElementsByClassName('draconicDepthsView__orangeButton draconicDepthsView__orangeButton--big draconicDepthsReinforceCavernDialogView__reinforceButton-- draconicDepthsReinforceCavernDialogView__reinforceButton')[0];
         fireEvent(reinforceConfirmButton, 'click');
     }
+
+    var crucibleProgress0 = objUser.crucible_forge.crucibles[0].progress;
+    var crucibleProgress1 = objUser.crucible_forge.crucibles[1].progress;
+    var crucibleProgress2 = objUser.crucible_forge.crucibles[2].progress;
+    var crucibleType0 = objUser.crucible_forge.crucibles[0].type;
+    var crucibleType1 = objUser.crucible_forge.crucibles[1].type;
+    var crucibleType2 = objUser.crucible_forge.crucibles[2].type;
+
+    // Auto enter cavern
+//     if (!inCavern && crucibleType0 == crucibleType1 && crucibleType1 == crucibleType2 && crucibleProgress0 == 20 && crucibleProgress1 == 20 && crucibleProgress2 == 20) {
+//         var readyButton0 = document.getElementsByClassName('draconicDepthsCrucibleView__crucibleSelectButton')[0];
+//         fireEvent(readyButton0, 'click');
+//         var readyButton1 = document.getElementsByClassName('draconicDepthsCrucibleView__crucibleSelectButton')[1];
+//         fireEvent(readyButton1, 'click');
+//         var readyButton2 = document.getElementsByClassName('draconicDepthsCrucibleView__crucibleSelectButton')[2];
+//                  fireEvent(readyButton2, 'click');
+// //                 console.log(readyButton0);
+// //                 console.log(readyButton1);
+// //                 console.log(readyButton2);
+// //         setTimeout(function(){
+// //             console.log("Executed after 1 second");
+// //         }, 1000);
+// //         fireEvent(readyButton1, 'click');
+// //         setTimeout(function(){
+// //             console.log("Executed after 1 second");
+// //         }, 1000);
+// //         fireEvent(readyButton2, 'click');
+//     }
 }
 
 function folkloreForest() {
